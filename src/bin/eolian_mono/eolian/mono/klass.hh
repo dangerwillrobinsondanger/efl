@@ -441,6 +441,12 @@ struct klass
      if(!name_helpers::close_namespaces(sink, cls.namespaces, context))
        return false;
 
+     if(!as_generator
+        ("public static class " << (string % "_") << name_helpers::klass_inherit_name(cls)
+         << "_ExtensionMethods {\n"
+         << *((scope_tab << property_extension_method_definition(cls)) << "\n")
+         << "}\n")
+        .generate(sink, std::make_tuple(cls.namespaces, cls.properties), context));
      return true;
    }
 
@@ -528,7 +534,7 @@ struct klass
                      // For constructors with arguments, the parent is also required, as optional parameters can't come before non-optional paramenters.
                      << scope_tab << "public " << inherit_name << "(Efl.Object parent" << ((constructors.size() > 0) ? "" : "= null") << "\n"
                      << scope_tab << scope_tab << scope_tab << *(", " << constructor_param ) << ") :\n"
-                     << scope_tab << scope_tab << (root ? "this" : "base")  << "(" << name_helpers::klass_get_name(cls) <<  "(), typeof(" << inherit_name << "), parent)\n"
+                     << scope_tab << scope_tab << (root ? "this" : "base")  << "(\"" << "\", " << name_helpers::klass_get_name(cls) <<  "(), typeof(" << inherit_name << "), parent, false)\n"
                      << scope_tab << "{\n"
                      << *(scope_tab << scope_tab << constructor_invocation << "\n" )
                      << scope_tab << scope_tab << "FinishInstantiation();\n"
@@ -547,7 +553,7 @@ struct klass
      {
          return as_generator(
                      scope_tab << "///<summary>Internal usage: Constructor to forward the wrapper initialization to the root class that interfaces with native code. Should not be used directly.</summary>\n"
-                     << scope_tab << "protected " << inherit_name << "(IntPtr base_klass, System.Type managed_type, Efl.Object parent) : base(base_klass, managed_type, parent) {}\n"
+                     << scope_tab << "protected " << inherit_name << "(IntPtr base_klass, System.Type managed_type, Efl.Object parent, bool force_no_inherit) : base(base_klass, managed_type, parent, force_no_inherit) {}\n"
                   ).generate(sink, attributes::unused, context);
 
      }
@@ -555,9 +561,9 @@ struct klass
      // Detailed constructors go only in root classes.
      return as_generator(
              /// Actual root costructor that creates class and instantiates 
-             scope_tab << "protected " << inherit_name << "(IntPtr base_klass, System.Type managed_type, Efl.Object parent)\n"
+             scope_tab << "protected " << inherit_name << "(IntPtr base_klass, System.Type managed_type, Efl.Object parent, bool force_no_inherit)\n"
              << scope_tab << "{\n"
-             << scope_tab << scope_tab << "inherited = ((object)this).GetType() != managed_type;\n"
+             << scope_tab << scope_tab << "inherited = force_no_inherit ? false : ((object)this).GetType() != managed_type;\n"
              << scope_tab << scope_tab << "IntPtr actual_klass = base_klass;\n"
              << scope_tab << scope_tab << "if (inherited) {\n"
              << scope_tab << scope_tab << scope_tab << "actual_klass = Efl.Eo.ClassRegister.GetInheritKlassOrRegister(base_klass, ((object)this).GetType());\n"

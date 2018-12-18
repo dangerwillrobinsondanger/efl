@@ -66,6 +66,8 @@ pub_eo_files = [
   'efl_core_proc_env.eo',
   'efl_core_command_line.eo',
   'efl_loop_timer.eo',
+  'efl_mono_model_internal.eo',
+  'efl_mono_model_internal_child.eo'
 ]
 
 foreach eo_file : pub_eo_files
@@ -145,6 +147,7 @@ ecore_src = [
   'efl_model_accessor_view.c',
   'efl_model_accessor_view_private.h',
   'efl_view_model.c',
+  'efl_mono_model_internal.c',
   'efl_linear_interpolator.c',
   'efl_accelerate_interpolator.c',
   'efl_decelerate_interpolator.c',

@@ -18,6 +18,22 @@ public static class TestParts
         do_part_test(t);
     }
 
+    public static void dynamic_parts()
+    {
+        var t = new DynamicChild();
+        var s = t["a"];
+    }
+
+    private class DynamicChild : Dummy.TestObject
+    {
+        public string this[string key]
+        {
+            get { return ""; }
+            //set { dictionary[key] = value == null ? null : value.Trim(); }
+        }
+    }
+   
+
     private class Child : Dummy.PartHolder
     {
         public Child() : base(null) {}
