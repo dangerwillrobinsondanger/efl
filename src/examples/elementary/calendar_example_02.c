@@ -39,6 +39,12 @@ elm_main(int argc EINA_UNUSED, char **argv EINA_UNUSED)
    evas_object_size_hint_weight_set(cal, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
    elm_win_resize_object_add(win, cal);
 
+   const char *b = "";
+   Eina_Value v = efl_property_reflection_get(cal, "language");
+   eina_value_string_convert(&v, &b);
+
+   printf("efl_property_reflection_get: %s\n", b);
+
    elm_calendar_format_function_set(cal, _format_month_year);
    elm_calendar_weekdays_names_set(cal, weekdays);
 
