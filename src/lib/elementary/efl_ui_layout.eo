@@ -82,7 +82,7 @@ class @beta Efl.Ui.Layout extends Efl.Ui.Widget implements Efl.Container, Efl.Fi
       Efl.Layout.Group.part_exist { get; }
       Efl.Ui.Widget.widget_sub_object_add;
       Efl.Ui.Widget.theme_apply;
-      Efl.Ui.Widget.on_disabled_update;
+      Efl.Ui.Widget.disabled {set;}
       Efl.Ui.Widget.widget_sub_object_del;
       Efl.Ui.Focus.Object.on_focus_update;
       Efl.Container.content_count;

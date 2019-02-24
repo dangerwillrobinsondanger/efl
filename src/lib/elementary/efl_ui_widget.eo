@@ -312,17 +312,6 @@ abstract @beta Efl.Ui.Widget extends Efl.Canvas.Group implements Efl.Access.Obje
          return: bool; [[Indicates if the operation succeeded.]]
          legacy: elm_widget_sub_object_del;
       }
-      on_disabled_update @protected {
-         [[Virtual function called when the widget becomes disabled.
-
-           This may be triggered even if this widget is not disabled, as the
-           parent widget could be disabled and propagate its state.
-         ]]
-         params {
-            disabled: bool; [[The new value of @.disabled.]]
-         }
-         return: bool; [[Indicates if the operation succeeded.]]
-      }
       theme_apply @protected {
          [[Virtual function called when the widget needs to re-apply its theme.
 
