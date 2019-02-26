@@ -690,7 +690,6 @@ EOLIAN static void
 _elm_menu_efl_canvas_group_group_add(Eo *obj, Elm_Menu_Data *priv)
 {
    efl_canvas_group_add(efl_super(obj, MY_CLASS));
-   elm_widget_sub_object_parent_add(obj);
 
    elm_widget_can_focus_set(obj, EINA_FALSE);
 
@@ -858,7 +857,7 @@ elm_menu_parent_set(Evas_Object *obj,
                     Evas_Object *parent)
 {
    ELM_MENU_CHECK(obj);
-   efl_ui_widget_parent_set(obj, parent);
+   efl_ui_widget_sub_object_add(parent, obj);
 }
 
 EOLIAN static void
@@ -866,6 +865,8 @@ _elm_menu_efl_ui_widget_widget_parent_set(Eo *obj, Elm_Menu_Data *sd, Evas_Objec
 {
    Eina_List *l, *_l, *_ll, *ll = NULL;
    Elm_Object_Item *eo_item;
+
+   efl_ui_widget_parent_set(efl_super(obj, MY_CLASS), parent);
 
    if (sd->parent == parent) return;
    if (sd->parent)

@@ -1104,6 +1104,7 @@ _elm_ctxpopup_efl_canvas_group_group_del(Eo *obj, Elm_Ctxpopup_Data *sd)
 EOLIAN static void
 _elm_ctxpopup_efl_ui_widget_widget_parent_set(Eo *obj, Elm_Ctxpopup_Data *_pd EINA_UNUSED, Evas_Object *parent)
 {
+   efl_ui_widget_parent_set(efl_super(obj, MY_CLASS), parent);
    //default parent is to be hover parent
    elm_ctxpopup_hover_parent_set(obj, parent);
 }

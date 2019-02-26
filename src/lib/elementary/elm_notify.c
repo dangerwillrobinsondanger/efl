@@ -489,12 +489,14 @@ elm_notify_parent_set(Evas_Object *obj,
                       Evas_Object *parent)
 {
    ELM_NOTIFY_CHECK(obj);
-   efl_ui_widget_parent_set(obj, parent);
+   efl_ui_widget_sub_object_add(parent, obj);
 }
 
 EOLIAN static void
 _elm_notify_efl_ui_widget_widget_parent_set(Eo *obj, Elm_Notify_Data *sd, Evas_Object *parent)
 {
+   efl_ui_widget_parent_set(efl_super(obj, MY_CLASS), parent);
+
    if (sd->parent)
      {
         evas_object_event_callback_del_full

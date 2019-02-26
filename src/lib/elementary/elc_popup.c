@@ -1508,6 +1508,8 @@ EOLIAN static void
 _elm_popup_efl_ui_widget_widget_parent_set(Eo *obj, Elm_Popup_Data *sd, Evas_Object *parent)
 {
    Evas_Coord x, y, w, h;
+
+   efl_ui_widget_parent_set(efl_super(obj, MY_CLASS), parent);
    evas_object_geometry_get(parent, &x, &y, &w, &h);
 
    if (efl_isa(parent, EFL_UI_WIN_CLASS))

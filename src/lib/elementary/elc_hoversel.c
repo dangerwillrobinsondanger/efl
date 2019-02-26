@@ -685,6 +685,7 @@ _elm_hoversel_efl_gfx_entity_visible_set(Eo *obj, Elm_Hoversel_Data *sd, Eina_Bo
 EOLIAN static void
 _elm_hoversel_efl_ui_widget_widget_parent_set(Eo *obj, Elm_Hoversel_Data *_pd EINA_UNUSED, Evas_Object *parent)
 {
+   efl_ui_widget_parent_set(efl_super(obj, MY_CLASS), parent);
    elm_hoversel_hover_parent_set(obj, parent);
 }
 

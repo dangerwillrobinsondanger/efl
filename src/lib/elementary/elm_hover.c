@@ -735,12 +735,13 @@ elm_hover_parent_set(Evas_Object *obj,
                      Evas_Object *parent)
 {
    ELM_HOVER_CHECK(obj);
-   efl_ui_widget_parent_set(obj, parent);
+   efl_ui_widget_sub_object_add(parent, obj);
 }
 
 EOLIAN static void
 _elm_hover_efl_ui_widget_widget_parent_set(Eo *obj, Elm_Hover_Data *sd, Evas_Object *parent)
 {
+   efl_ui_widget_parent_set(efl_super(obj, MY_CLASS), parent);
    _elm_hover_parent_detach(obj);
 
    sd->parent = parent;
