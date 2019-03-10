@@ -270,10 +270,6 @@ static internal class UnsafeNativeMethods {
 
     [DllImport(efl.Libs.CustomExports)]
     [return: MarshalAsAttribute(UnmanagedType.U1)]
-    internal static extern bool eina_value_list_get_wrapper(IntPtr handle, int index, out IntPtr output);
-
-    [DllImport(efl.Libs.CustomExports)]
-    [return: MarshalAsAttribute(UnmanagedType.U1)]
     internal static extern bool eina_value_container_set_wrapper_string(IntPtr handle, int index, string value);
 
     [DllImport(efl.Libs.CustomExports)]
@@ -586,6 +582,8 @@ public enum ValueType {
     Hash,
     /// <summary>Optional (aka empty) values.</summary>
     Optional,
+    /// <summary>Object instances.</summary>
+    Object,
     /// <summary>Error values.</summary>
     Error,
     /// <summary>Empty values.</summary>
@@ -2011,6 +2009,14 @@ public class Value : IDisposable, IComparable<Value>, IEquatable<Value>
                         IntPtr ptr = IntPtr.Zero;
                         eina_value_container_get_wrapper(this.Handle, i, out ptr);
                         return Eina.StringConversion.NativeUtf8ToManagedString(ptr);
+                    }
+                case ValueType.Object:
+                    {
+                        // Using intptr as using string as the arg type in the DllImport'd function would
+                        // make mono take ownership of the string.
+                        IntPtr ptr = IntPtr.Zero;
+                        eina_value_container_get_wrapper(this.Handle, i, out ptr);
+                        return new Efl.Object(ptr);
                     }
                 default:
                     throw new InvalidOperationException("Subtype not supported.");
