@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
 
+#if EFL_BETA
+
 namespace Efl {
 
 internal class ModelHelper
@@ -107,3 +109,5 @@ public class UserModel<T> : Efl.MonoModelInternal, IDisposable
 }
 
 }
+
+#endif // EFL_BETA

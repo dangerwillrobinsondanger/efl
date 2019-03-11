@@ -5,6 +5,8 @@ using System.Linq;
 using System.ComponentModel;
 using Eina;
 
+#if EFL_BETA
+
 namespace Efl {
 
 public class GenericModel<T> : Efl.Object, Efl.Model, IDisposable
@@ -141,3 +143,5 @@ public class GenericModel<T> : Efl.Object, Efl.Model, IDisposable
 }
 
 }
+
+#endif // EFL_BETA
