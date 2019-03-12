@@ -75,10 +75,10 @@ public class UserModel<T> : Efl.MonoModelInternal, IDisposable
          if (((object)this).GetType() == typeof (UserModel<T>))
             return Efl.MonoModelInternalNativeInherit.GetEflClassStatic();
          else
-            return Efl.Eo.Globals.klasses[((object)this).GetType()];
+            return Efl.Eo.ClassRegister.GetKlass(((object)this).GetType());
       }
    }
-   public UserModel (Efl.Object parent = null) : base("MonoModelInternal", Efl.MonoModelInternal.efl_mono_model_internal_class_get(), typeof(MonoModelInternal), parent, true)
+   public UserModel (Efl.Object parent = null) : base(Efl.MonoModelInternal.efl_mono_model_internal_class_get(), typeof(MonoModelInternal), parent, true)
    {
      inherited = false;
      var properties = typeof(T).GetProperties();

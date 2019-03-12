@@ -235,10 +235,10 @@ public class Globals {
     }
 
 #if EFL_BETA
-    public static Efl.Class get_efl_klass_from_klass<T>()
+    public static IntPtr get_efl_klass_from_klass<T>()
     {
         var native = get_native_class (typeof(T));
-        return new Efl.Class (native.GetEflClass());
+        return native.GetEflClass();
     }
 #endif // EFL_BETA
 

@@ -11,7 +11,7 @@ namespace Efl { namespace Ui {
 public class ItemFactory<T> : Efl.Ui.CachingFactory, IDisposable
 {
     public ItemFactory(Efl.Object parent = null)
-        : base (parent, Efl.Eo.Globals.get_efl_klass_from_klass<T>())
+        : base (parent, typeof(T))
     {
     }
 
