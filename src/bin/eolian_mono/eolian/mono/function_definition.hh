@@ -237,9 +237,12 @@ struct property_extension_method_definition_generator
       if (property.setter.is_engaged())
         {
           attributes::type_def prop_type = property.setter->parameters[0].type;
-          if (!as_generator("public static Efl.Bindable<" << type(true) << "> " << managed_name << "(this Efl.Ui.ItemFactory<" << name_helpers::klass_full_concrete_name(cls) <<  "> fac) {\n"
+          if (!as_generator(
+                            lit("#if EFL_BETA\n") // Dueto Efl.Ui.ItemFactory
+                            << "public static Efl.Bindable<" << type(true) << "> " << managed_name << "(this Efl.Ui.ItemFactory<" << name_helpers::klass_full_concrete_name(cls) <<  "> fac) {\n"
                             << scope_tab << scope_tab << "return new Efl.Bindable<" << type(true) << ">(\"" << property.name << "\", fac);\n"
                             << scope_tab << "}\n"
+                            << "#endif\n"
                             ).generate(sink, std::make_tuple(prop_type, prop_type), context))
             return false;
         }

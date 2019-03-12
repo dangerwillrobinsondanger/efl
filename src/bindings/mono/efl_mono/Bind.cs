@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
 
+#if EFL_BETA
+
 namespace Efl {
 
 public class Bindable<T>
@@ -29,3 +31,5 @@ public class Bindable<T>
 }
 
 }
+
+#endif // EFL_BETA

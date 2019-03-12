@@ -4,6 +4,8 @@ using System;
 using System.Threading.Tasks;
 using System.Diagnostics.CodeAnalysis;
 
+#if EFL_BETA
+
 namespace TestSuite {
 
 [SuppressMessage("Gendarme.Rules.Portability", "DoNotHardcodePathsRule")]
@@ -66,3 +68,5 @@ public static class TestModel {
 }
 
 }
+
+#endif // EFL_BETA

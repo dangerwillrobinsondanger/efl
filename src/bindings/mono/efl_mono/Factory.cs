@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel;
 
+#if EFL_BETA
+
 namespace Efl { namespace Ui {
 
 public class ItemFactory<T> : Efl.Ui.CachingFactory, IDisposable
@@ -17,3 +19,5 @@ public class ItemFactory<T> : Efl.Ui.CachingFactory, IDisposable
 }
 
 } }
+
+#endif // EFL_BETA

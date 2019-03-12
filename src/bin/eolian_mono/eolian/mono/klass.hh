@@ -534,7 +534,7 @@ struct klass
                      // For constructors with arguments, the parent is also required, as optional parameters can't come before non-optional paramenters.
                      << scope_tab << "public " << inherit_name << "(Efl.Object parent" << ((constructors.size() > 0) ? "" : "= null") << "\n"
                      << scope_tab << scope_tab << scope_tab << *(", " << constructor_param ) << ") :\n"
-                     << scope_tab << scope_tab << (root ? "this" : "base")  << "(\"" << "\", " << name_helpers::klass_get_name(cls) <<  "(), typeof(" << inherit_name << "), parent, false)\n"
+                     << scope_tab << scope_tab << (root ? "this" : "base")  << "(" << name_helpers::klass_get_name(cls) <<  "(), typeof(" << inherit_name << "), parent, false)\n"
                      << scope_tab << "{\n"
                      << *(scope_tab << scope_tab << constructor_invocation << "\n" )
                      << scope_tab << scope_tab << "FinishInstantiation();\n"

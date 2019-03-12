@@ -233,12 +233,15 @@ public class Globals {
             Eina.Log.Debug("Registered class successfully");
         return klass;
     }
+
+#if EFL_BETA
     public static Efl.Class get_efl_klass_from_klass<T>()
     {
         var native = get_native_class (typeof(T));
         return new Efl.Class (native.GetEflClass());
     }
-    
+#endif // EFL_BETA
+
     public static List<IntPtr> get_efl_interfaces(System.Type type)
     {
         System.Type base_type = type.BaseType;
