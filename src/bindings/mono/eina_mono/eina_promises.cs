@@ -198,10 +198,10 @@ public class Future
     public Future(IntPtr handle)
     {
         Handle = handle;
-        // Handle = ThenRaw(handle, (Eina.Value value) => {
-        //     Handle = IntPtr.Zero;
-        //     return value;
-        // });
+        Handle = ThenRaw(handle, (Eina.Value value) => {
+            Handle = IntPtr.Zero;
+            return value;
+        });
     }
 
     /// <summary>
