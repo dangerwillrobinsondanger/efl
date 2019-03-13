@@ -105,7 +105,13 @@ def simulate_example(example):
   args = []
   if os.path.basename(example) in example_preparation:
     args = example_preparation[os.path.basename(example)]()
-  run = subprocess.Popen([G.builddir + "/" + example] + args,
+
+  if os.path.isabs(example):
+    example_dir = example
+  else:
+    example_dir = os.path.join(G.builddir, example)
+
+  run = subprocess.Popen([example_dir] + args,
       stdout = subprocess.PIPE,
       stderr = subprocess.PIPE,
   )
@@ -131,7 +137,7 @@ meson_introspect = subprocess.Popen(["meson", "introspect", G.builddir, "--targe
 )
 meson_introspect.poll()
 build_targets = json.loads(meson_introspect.stdout.read())
-examples = [b["filename"] for b in build_targets if "examples" in b["filename"] and b["type"] == "executable"]
+examples = [b["filename"][0] for b in build_targets if "examples" in b["filename"][0] and b["type"] == "executable"]
 state = State(len(examples))
 #simulate all examples in parallel with up to 5 runners
 with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
