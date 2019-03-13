@@ -129,7 +129,7 @@ def simulate_example(example):
 parser = argparse.ArgumentParser(description='Run the examples of efl')
 parser.add_argument('builddir', metavar='build', help='the path where to find the meson build directory')
 
-def meson_fetch_filename(filename_object)
+def meson_fetch_filename(filename_object):
   if isinstance(filename_object, str):
     return filename_object
   else:
