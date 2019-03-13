@@ -129,6 +129,13 @@ def simulate_example(example):
 parser = argparse.ArgumentParser(description='Run the examples of efl')
 parser.add_argument('builddir', metavar='build', help='the path where to find the meson build directory')
 
+def meson_fetch_filename(filename_object)
+  if isinstance(filename_object, str):
+    return filename_object
+  else:
+    return filename_object[0]
+
+
 G = parser.parse_args()
 #Run meson to fetch all examples
 meson_introspect = subprocess.Popen(["meson", "introspect", G.builddir, "--targets"],
@@ -137,7 +144,7 @@ meson_introspect = subprocess.Popen(["meson", "introspect", G.builddir, "--targe
 )
 meson_introspect.poll()
 build_targets = json.loads(meson_introspect.stdout.read())
-examples = [b["filename"][0] for b in build_targets if "examples" in b["filename"][0] and b["type"] == "executable"]
+examples = [meson_fetch_filename(b["filename"]) for b in build_targets if "examples" in meson_fetch_filename(b["filename"]) and b["type"] == "executable"]
 state = State(len(examples))
 #simulate all examples in parallel with up to 5 runners
 with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
