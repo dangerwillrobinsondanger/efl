@@ -97,13 +97,21 @@ namespace Efl {
       /// </summary>
       public void Launch(Efl.Csharp.Components components=Components.Ui) {
         Init(components);
+        Console.WriteLine("Initialized.");
         Efl.App app = Efl.App.AppMain;
         Eina.Array<String> command_line = new Eina.Array<String>();
         command_line.Append(Environment.GetCommandLineArgs());
 #if EFL_BETA
+        foreach (String s in command_line)
+        {
+            Console.WriteLine($"Got arg [{s}]");
+        }
+        Console.WriteLine("Setting command line array");
         app.SetCommandArray(command_line);
 #endif
+        Console.WriteLine("Adding arguments event handler");
         app.ArgumentsEvt += (object sender, LoopArgumentsEvt_Args evt) => {
+          Console.WriteLine("ArgumentsEvt callback called.");
           if (evt.arg.Initialization) {
             OnInitialize(evt.arg.Argv);
           }
@@ -118,6 +126,7 @@ namespace Efl {
         app.TerminateEvt += (object sender, EventArgs e) => {
           OnTerminate();
         };
+        Console.WriteLine("Starting main loop.");
         app.Begin();
         Shutdown();
       }
