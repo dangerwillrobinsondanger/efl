@@ -779,6 +779,37 @@ Eina_Array *_dummy_test_object_eina_array_str_return_own(EINA_UNUSED Eo *obj, EI
    return arr;
 }
 
+// Stringshare
+Eina_Bool _dummy_test_object_eina_array_stringshare_in(Eo *obj, Dummy_Test_Object_Data *pd, Eina_Array *arr)
+{
+   return EINA_FALSE;
+}
+
+Eina_Bool _dummy_test_object_check_eina_array_stringshare_in_own(Eo *obj, Dummy_Test_Object_Data *pd)
+{
+   return EINA_FALSE;
+}
+
+Eina_Bool _dummy_test_object_eina_array_stringshare_out(Eo *obj, Dummy_Test_Object_Data *pd, Eina_Array **arr)
+{
+   return EINA_FALSE;
+}
+
+Eina_Bool _dummy_test_object_check_eina_array_stringshare_out(Eo *obj, Dummy_Test_Object_Data *pd)
+{
+   return EINA_FALSE;
+}
+
+Eina_Array *_dummy_test_object_eina_array_stringshare_return(Eo *obj, Dummy_Test_Object_Data *pd)
+{
+   return NULL;
+}
+
+Eina_Bool _dummy_test_object_check_eina_array_stringshare_return(Eo *obj, Dummy_Test_Object_Data *pd)
+{
+   return EINA_FALSE;
+}
+
 // Object
 
 Eina_Bool _array_obj_equal(const Eina_Array *arr, const Dummy_Numberwrapper * const base[], unsigned int len)
