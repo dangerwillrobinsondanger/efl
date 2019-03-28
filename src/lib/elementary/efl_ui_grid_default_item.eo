@@ -11,8 +11,9 @@ class @beta Efl.Ui.Grid_Default_Item extends Efl.Ui.Grid_Item implements
      @Efl.Content or @Efl.Part.]]
    data: null;
    parts {
-     icon: Efl.Ui.Grid_Default_Item_Part_Icon; [[]]
-     end: Efl.Ui.Grid_Default_Item_Part_End; [[]]
+     icon: Efl.Ui.Grid_Default_Item_Part_Icon; [[Icon for the item]]
+     end: Efl.Ui.Grid_Default_Item_Part_End; [[Optional content at the end of the item
+                                               (after the text)]]
    }
    implements {
       //Efl.Object
