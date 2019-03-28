@@ -782,6 +782,15 @@ Eina_Array *_dummy_test_object_eina_array_str_return_own(EINA_UNUSED Eo *obj, EI
 // Stringshare
 Eina_Bool _dummy_test_object_eina_array_stringshare_in(Eo *obj, Dummy_Test_Object_Data *pd, Eina_Array *arr)
 {
+   Eina_Bool r = _array_str_equal(arr, base_seq_str, base_seq_str_size);
+   eina_array_push(arr, strdup("42"));
+   eina_array_push(arr, strdup("43"));
+   eina_array_push(arr, strdup("33"));
+   return r;
+}
+
+Eina_Bool _dummy_test_object_eina_array_stringshare_in_own(Eo *obj, Dummy_Test_Object_Data *pd, Eina_Array *arr)
+{
    return EINA_FALSE;
 }
 
@@ -791,6 +800,11 @@ Eina_Bool _dummy_test_object_check_eina_array_stringshare_in_own(Eo *obj, Dummy_
 }
 
 Eina_Bool _dummy_test_object_eina_array_stringshare_out(Eo *obj, Dummy_Test_Object_Data *pd, Eina_Array **arr)
+{
+   return EINA_FALSE;
+}
+
+Eina_Bool _dummy_test_object_eina_array_stringshare_out_own(Eo *obj, Dummy_Test_Object_Data *pd, Eina_Array **arr)
 {
    return EINA_FALSE;
 }
@@ -808,6 +822,11 @@ Eina_Array *_dummy_test_object_eina_array_stringshare_return(Eo *obj, Dummy_Test
 Eina_Bool _dummy_test_object_check_eina_array_stringshare_return(Eo *obj, Dummy_Test_Object_Data *pd)
 {
    return EINA_FALSE;
+}
+
+Eina_Array *_dummy_test_object_eina_array_stringshare_return_own(Eo *obj, Dummy_Test_Object_Data *pd)
+{
+   return NULL;
 }
 
 // Object

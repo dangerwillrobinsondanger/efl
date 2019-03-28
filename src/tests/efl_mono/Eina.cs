@@ -878,6 +878,80 @@ class TestEinaArray
         Test.Assert(arr.Handle == IntPtr.Zero);
     }
 
+    // Stringshare //
+    public static void test_eina_array_stringshare_in()
+    {
+        var t = new Dummy.TestObject();
+        var arr = new Eina.Array<string>();
+        arr.Append(base_seq_str);
+        Test.Assert(t.EinaArrayStringshareIn(arr));
+        Test.Assert(arr.Own);
+        Test.Assert(arr.ToArray().SequenceEqual(modified_seq_str));
+        arr.Dispose();
+        Test.Assert(arr.Handle == IntPtr.Zero);
+    }
+
+    public static void test_eina_array_stringshare_in_own()
+    {
+        var t = new Dummy.TestObject();
+        var arr = new Eina.Array<string>();
+        arr.Append(base_seq_str);
+        Test.Assert(t.EinaArrayStringshareInOwn(arr));
+        Test.Assert(!arr.Own);
+        Test.Assert(arr.ToArray().SequenceEqual(modified_seq_str));
+        arr.Dispose();
+        Test.Assert(arr.Handle == IntPtr.Zero);
+        Test.Assert(t.CheckEinaArrayStringshareInOwn());
+    }
+
+    public static void test_eina_array_stringshare_out()
+    {
+        var t = new Dummy.TestObject();
+        Eina.Array<string> arr;
+        Test.Assert(t.EinaArrayStringshareOut(out arr));
+        Test.Assert(!arr.Own);
+        Test.Assert(arr.ToArray().SequenceEqual(base_seq_str));
+        Test.Assert(arr.Append(append_seq_str));
+        arr.Dispose();
+        Test.Assert(arr.Handle == IntPtr.Zero);
+        Test.Assert(t.CheckEinaArrayStringshareOut());
+    }
+
+    public static void test_eina_array_stringshare_out_own()
+    {
+        var t = new Dummy.TestObject();
+        Eina.Array<string> arr;
+        Test.Assert(t.EinaArrayStringshareOutOwn(out arr));
+        Test.Assert(arr.Own);
+        Test.Assert(arr.ToArray().SequenceEqual(base_seq_str));
+        Test.Assert(arr.Append(append_seq_str));
+        arr.Dispose();
+        Test.Assert(arr.Handle == IntPtr.Zero);
+    }
+
+    public static void test_eina_array_stringshare_return()
+    {
+        var t = new Dummy.TestObject();
+        var arr = t.EinaArrayStringshareReturn();
+        Test.Assert(!arr.Own);
+        Test.Assert(arr.ToArray().SequenceEqual(base_seq_str));
+        Test.Assert(arr.Append(append_seq_str));
+        arr.Dispose();
+        Test.Assert(arr.Handle == IntPtr.Zero);
+        Test.Assert(t.CheckEinaArrayStringshareReturn());
+    }
+
+    public static void test_eina_array_stringshare_return_own()
+    {
+        var t = new Dummy.TestObject();
+        var arr = t.EinaArrayStringshareReturnOwn();
+        Test.Assert(arr.Own);
+        Test.Assert(arr.ToArray().SequenceEqual(base_seq_str));
+        Test.Assert(arr.Append(append_seq_str));
+        arr.Dispose();
+        Test.Assert(arr.Handle == IntPtr.Zero);
+    }
+
     // Object //
 
     public static void test_eina_array_obj_in()

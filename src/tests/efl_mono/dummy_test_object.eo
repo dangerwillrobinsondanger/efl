@@ -472,6 +472,12 @@ class Dummy.Test_Object extends Efl.Object implements Dummy.Test_Iface {
          return: bool;
       }
 
+      eina_array_stringshare_in_own {
+         params {
+            @in arr: array<stringshare @owned> @owned;
+         }
+         return: bool;
+      }
       check_eina_array_stringshare_in_own {
          return: bool;
       }
@@ -486,6 +492,13 @@ class Dummy.Test_Object extends Efl.Object implements Dummy.Test_Iface {
          return: bool;
       }
 
+      eina_array_stringshare_out_own {
+         params {
+            @out arr: array<stringshare @owned> @owned;
+         }
+         return: bool;
+      }
+
       eina_array_stringshare_return {
          return: array<stringshare>;
       }
@@ -493,7 +506,9 @@ class Dummy.Test_Object extends Efl.Object implements Dummy.Test_Iface {
          return: bool;
       }
 
-
+      eina_array_stringshare_return_own {
+         return: array<mstring @owned> @owned;
+      }
 
       /* Object */
       eina_array_obj_in {
