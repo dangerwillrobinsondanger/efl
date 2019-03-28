@@ -99,6 +99,8 @@ public class Array<T> : IEnumerable<T>, IDisposable
 
     public Array(IntPtr handle, bool own)
     {
+        if (handle == IntPtr.Zero)
+            throw new ArgumentNullException("Handle can't be null");
         Handle = handle;
         Own = own;
         OwnContent = own;
@@ -106,6 +108,8 @@ public class Array<T> : IEnumerable<T>, IDisposable
 
     public Array(IntPtr handle, bool own, bool ownContent)
     {
+        if (handle == IntPtr.Zero)
+            throw new ArgumentNullException("Handle can't be null");
         Handle = handle;
         Own = own;
         OwnContent = ownContent;
