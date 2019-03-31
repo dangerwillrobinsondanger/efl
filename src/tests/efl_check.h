@@ -278,6 +278,12 @@ _efl_suite_wait_on_fork(int *num_forks, Eina_Bool *timeout)
 }
 #endif
 
+#define D(f) \
+do { \
+  printf("%s:%d %d %d\n", __FILE__, __LINE__, getpid(), i); \
+  f \
+} while(0);
+
 EINA_UNUSED static int
 _efl_suite_build_and_run(int argc, const char **argv, const char *suite_name, const Efl_Test_Case *etc, SFun init, SFun shutdown)
 {
@@ -305,12 +311,12 @@ _efl_suite_build_and_run(int argc, const char **argv, const char *suite_name, co
    if (do_fork)
      can_fork = !!etc[1].test_case /* can't parallelize 1 test */;
 
-   for (i = 0; etc[i].test_case; ++i)
+   for (i = 0; etc[i].test_case; i++)
      {
         int pid = 0;
 
-        if (!_efl_test_use(argc, argv, etc[i].test_case))
-           continue;
+        D(if (!_efl_test_use(argc, argv, etc[i].test_case))
+           continue;)
 #ifdef HAVE_FORK
         if (do_fork && can_fork)
           {
@@ -327,7 +333,9 @@ _efl_suite_build_and_run(int argc, const char **argv, const char *suite_name, co
                    printf("EMERGENCY OUT\n");
                    break;
                }
+             D()
              pid = fork();
+             D()
              if (pid > 0)
                {
                   if (!fork_map) fork_map = eina_hash_int32_new(NULL);
@@ -342,28 +350,33 @@ _efl_suite_build_and_run(int argc, const char **argv, const char *suite_name, co
                }
           }
 #endif
-
+        D()
         tc = tcase_create(etc[i].test_case);
         if (init || shutdown)
           tcase_add_checked_fixture(tc, init, shutdown);
-
+        D()
         if (do_fork)
           tcase_set_timeout(tc, 0);
-
+        D()
         etc[i].build(tc);
         suite_add_tcase(s, tc);
+        D()
 #ifdef HAVE_FORK
         if (do_fork && (!pid) && can_fork)
           {
              failed_count = _efl_suite_run_end(sr, etc[i].test_case);
+             D()
              if (failed_count > 255)
                failed_count = 255;
+             D()
 #ifdef ENABLE_TIMING_INFO
              if (timing)
                printf("TC TIME %s: %.5g\n", etc[i].test_case, _timing_time_get() - tcstart);
 #endif
+             D()
              exit(failed_count);
           }
+        D()
 #endif
      }
 
