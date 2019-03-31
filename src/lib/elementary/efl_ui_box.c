@@ -257,27 +257,23 @@ _efl_ui_box_efl_pack_pack(Eo *obj, Efl_Ui_Box_Data *pd EINA_UNUSED, Efl_Gfx_Enti
 EOLIAN static Eina_Bool
 _efl_ui_box_efl_pack_linear_pack_end(Eo *obj, Efl_Ui_Box_Data *pd EINA_UNUSED, Efl_Gfx_Entity *subobj)
 {
-   Eina_Bool ret;
-
    ELM_WIDGET_DATA_GET_OR_RETURN(obj, wd, EINA_FALSE);
 
-   ret  = elm_widget_sub_object_add(obj, subobj);
-   ret &= (evas_object_box_append(wd->resize_obj, subobj) != NULL);
+   if (!elm_widget_sub_object_add(obj, subobj)) return EINA_FALSE;
+   if (!evas_object_box_append(wd->resize_obj, subobj)) return EINA_FALSE;
 
-   return ret;
+   return EINA_TRUE;
 }
 
 EOLIAN static Eina_Bool
 _efl_ui_box_efl_pack_linear_pack_begin(Eo *obj, Efl_Ui_Box_Data *_pd EINA_UNUSED, Efl_Gfx_Entity *subobj)
 {
-   Eina_Bool ret;
-
    ELM_WIDGET_DATA_GET_OR_RETURN(obj, wd, EINA_FALSE);
 
-   ret  = elm_widget_sub_object_add(obj, subobj);
-   ret &= (evas_object_box_prepend(wd->resize_obj, subobj) != NULL);
+   if (!elm_widget_sub_object_add(obj, subobj)) return EINA_FALSE;
+   if (!evas_object_box_append(wd->resize_obj, subobj)) return EINA_FALSE;
 
-   return ret;
+   return EINA_TRUE;
 }
 
 EOLIAN static Eina_Bool
