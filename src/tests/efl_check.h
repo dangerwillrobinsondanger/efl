@@ -262,6 +262,7 @@ _efl_suite_wait_on_fork(int *num_forks, Eina_Bool *timeout)
 {
    int status = 0, ret, pid;
    pid = waitpid(0, &status, 0);
+   printf("<%d\n", pid);
    if (WIFEXITED(status))
      ret = WEXITSTATUS(status);
    else
@@ -321,12 +322,17 @@ _efl_suite_build_and_run(int argc, const char **argv, const char *suite_name, co
                }
              if (num_forks == eina_cpu_count())
                failed_count += _efl_suite_wait_on_fork(&num_forks, &timeout_reached);
-             if (timeout_reached) break;
+             if (timeout_reached)
+               {
+                   printf("EMERGENCY OUT\n");
+                   break;
+               }
              pid = fork();
              if (pid > 0)
                {
                   if (!fork_map) fork_map = eina_hash_int32_new(NULL);
                   eina_hash_add(fork_map, &pid, etc[i].test_case);
+                  printf(">%d%s\n", pid, etc[i].test_case);
                   num_forks++;
 #ifdef ENABLE_TIMING_INFO
                   if (timing)
