@@ -298,6 +298,8 @@ _eio_build_st_done(void *data, Eio_File *handler EINA_UNUSED, const Eina_Stat *s
    Efl_Io_Model *model = data;
    Efl_Io_Model_Data *pd = efl_data_scope_get(model, EFL_IO_MODEL_CLASS);
 
+   printf("BUILD ST DONE\n");
+
    if (!pd) return ;
    pd->request.stat = NULL;
 
@@ -367,6 +369,8 @@ _eio_build_st(const Efl_Io_Model *model, Efl_Io_Model_Data *pd)
    if (pd->st) return ;
    if (pd->request.stat) return ;
    if (pd->error) return ;
+
+   printf("BUILD ST GO\n");
 
    pd->request.stat = eio_file_direct_stat(pd->path,
                                            _eio_build_st_done,
