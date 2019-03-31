@@ -160,9 +160,11 @@ EFL_START_TEST(efl_io_model_test_test_monitor_add)
 
    tmpdir = eina_environment_tmp_get();
 
+   printf("ENTER\n");
    filemodel = efl_add_ref(EFL_IO_MODEL_CLASS,
                            efl_main_loop_get(),
                            efl_io_model_path_set(efl_added, tmpdir));
+   printf("DONE\n");
    fail_if(!filemodel, "ERROR: Cannot init model!\n");
 
    efl_event_callback_add(filemodel, EFL_MODEL_EVENT_CHILD_ADDED, &_children_added_cb, filemodel);
