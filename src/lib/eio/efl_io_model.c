@@ -366,6 +366,7 @@ _eio_build_st_error_clobber(void *data, Eio_File *handler, int error)
 static void
 _eio_build_st(const Efl_Io_Model *model, Efl_Io_Model_Data *pd)
 {
+   printf("BUILD ST GO %p %p %d\n",pd->st, pd->request.stat, pd->error);
    if (pd->st) return ;
    if (pd->request.stat) return ;
    if (pd->error) return ;
