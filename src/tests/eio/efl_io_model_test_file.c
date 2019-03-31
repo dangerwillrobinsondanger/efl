@@ -166,7 +166,7 @@ EFL_START_TEST(efl_io_model_test_test_file)
 
    memset(&reqs, 0, sizeof(struct reqs_t));
 
-   filemodel = efl_add(EFL_IO_MODEL_CLASS, efl_main_loop_get(),
+   filemodel = efl_add_ref(EFL_IO_MODEL_CLASS, efl_main_loop_get(),
                        efl_io_model_path_set(efl_added, EFL_MODEL_TEST_FILENAME_PATH));
    fail_if(!filemodel, "ERROR: Cannot init model!\n");
 
