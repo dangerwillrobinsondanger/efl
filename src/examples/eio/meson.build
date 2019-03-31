@@ -2,6 +2,7 @@ files = [
   'efl_io_manager_ls',
   'efl_io_manager_open',
   'efl_io_manager_open_multi',
+  'efl_io_model_list',
   'eio_file_copy',
   'eio_file_ls',
   'eio_sentry'
