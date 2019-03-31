@@ -326,8 +326,12 @@ _efl_suite_build_and_run(int argc, const char **argv, const char *suite_name, co
              if (pid > 0)
                {
                   if (!fork_map) fork_map = eina_hash_int32_new(NULL);
-                  eina_hash_add(fork_map, &pid, etc[i].test_case);
-                  num_forks++;
+                  //this looks weird, and it is weird, but we need to work arround a travis / compiler bug here
+                  if (!eina_hash_find(fork_map, &pid))
+                    {
+                       eina_hash_add(fork_map, &pid, etc[i].test_case);
+                       num_forks++;
+                    }
 #ifdef ENABLE_TIMING_INFO
                   if (timing)
                     tcstart = _timing_time_get();
