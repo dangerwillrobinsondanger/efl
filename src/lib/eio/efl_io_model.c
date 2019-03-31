@@ -768,10 +768,12 @@ _efl_io_model_efl_model_children_count_get(const Eo *obj, Efl_Io_Model_Data *pd)
    if (efl_invalidated_get(obj) ||
        efl_invalidating_get(obj))
      {
+        printf("INV!!\n");
         return 0;
      }
    else if (!pd->info)
      {
+        printf("BUILD!!\n");
         _eio_build_st(obj, pd);
      }
    else if (!pd->listed &&
@@ -795,8 +797,9 @@ _efl_io_model_efl_model_children_count_get(const Eo *obj, Efl_Io_Model_Data *pd)
                                               .success = _efl_io_model_children_list_on,
                                               .free = _efl_io_model_children_list_cleanup,
                                               .data = pd);
+        printf("REQUEST!!\n");
      }
-
+   printf("FILES:%d\n", eina_list_count(pd->files));
    return eina_list_count(pd->files);
 }
 
