@@ -1739,7 +1739,7 @@ EOLIAN static Evas_Object_Box_Option*
 _evas_box_prepend(Eo *o, Evas_Object_Box_Data *priv, Evas_Object *child)
 {
    Evas_Object_Box_Option *opt = NULL;
-   if (!child)
+   if (!child || (evas_object_smart_parent_get(child) == o))
      return NULL;
 
    opt = evas_obj_box_internal_prepend(o, child);
@@ -1757,7 +1757,7 @@ EOLIAN static Evas_Object_Box_Option*
 _evas_box_insert_before(Eo *o, Evas_Object_Box_Data *priv, Evas_Object *child, const Evas_Object *reference)
 {
    Evas_Object_Box_Option *opt = NULL;
-   if (!child)
+   if (!child || (evas_object_smart_parent_get(child) == o))
      return NULL;
 
    opt = evas_obj_box_internal_insert_before(o, child, reference);
@@ -1776,7 +1776,7 @@ EOLIAN static Evas_Object_Box_Option*
 _evas_box_insert_after(Eo *o, Evas_Object_Box_Data *priv, Evas_Object *child, const Evas_Object *reference)
 {
    Evas_Object_Box_Option *opt = NULL;
-   if (!child)
+   if (!child || (evas_object_smart_parent_get(child) == o))
      return NULL;
 
    opt = evas_obj_box_internal_insert_after(o, child, reference);
@@ -1795,7 +1795,7 @@ EOLIAN static Evas_Object_Box_Option*
 _evas_box_insert_at(Eo *o, Evas_Object_Box_Data *priv, Evas_Object *child, unsigned int pos)
 {
    Evas_Object_Box_Option *opt = NULL;
-   if (!child)
+   if (!child || (evas_object_smart_parent_get(child) == o))
      return NULL;
 
    opt = evas_obj_box_internal_insert_at(o, child, pos);
