@@ -350,6 +350,8 @@ eio_monitor_fallback_add(Eio_Monitor *monitor)
                                     _eio_monitor_fallback_end_cb,
                                     _eio_monitor_fallback_cancel_cb,
                                     backend);
+   //ensure this is initialized here
+   _eio_monitor_fallback_heavy_cb(backend, NULL);
 }
 
 void
