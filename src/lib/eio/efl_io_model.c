@@ -1001,7 +1001,7 @@ _efl_io_model_efl_object_finalize(Eo *obj, Efl_Io_Model_Data *pd)
         return NULL;
      }
 
-   printf("FINALIZED!\n");
+   printf("FINALIZED! %s\n", pd->path);
    // If we have no info at all, let's check this path first
    if (!pd->info) _eio_build_st(obj, pd);
 

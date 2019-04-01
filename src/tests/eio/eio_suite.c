@@ -41,14 +41,14 @@ SUITE_INIT(eio)
 {
    printf("BEGIN I: ");
    ck_assert_int_eq(eio_init(), 1);
-   printf("DONE\n");
+   printf("DONE I\n");
 }
 
 SUITE_SHUTDOWN(eio)
 {
    printf("BEGIN S: ");
    ck_assert_int_eq(eio_shutdown(), 0);
-   printf("DONE\n");
+   printf("DONE S\n");
 }
 
 int

@@ -93,6 +93,7 @@ _children_removed_cb(void *data EINA_UNUSED, const Efl_Event* event)
      efl_future_then(efl_loop_get(evt->child),
                      efl_loop_job(efl_loop_get(evt->child)),
                      .success = _delayed_quit);
+   printf("DEL! %s-%s\n", str,temp_filename);
 
    free(str);
    eina_value_free(path);
@@ -119,6 +120,7 @@ _children_get(void *data,
         path = efl_model_property_get(child, "path");
         fail_if(path == NULL);
         str = eina_value_to_string(path);
+        printf("FOUND %s\n", str);
         fail_if(str == NULL);
 
         if (started_up && strcmp(temp_filename, str) == 0)
@@ -140,7 +142,6 @@ _children_get(void *data,
           }
      }
    started_up = EINA_TRUE;
-
    return v;
 }
 
@@ -151,6 +152,7 @@ _children_added_cb(void *d EINA_UNUSED, const Efl_Event* event)
    Eina_Future *future;
 
    future = efl_model_children_slice_get(event->object, evt->index, 1);
+   printf("asdfasdfdasdf -> %d:%s\n", evt->index, efl_io_model_path_get(event->object));
    eina_future_then(future, _children_get, event->object, NULL);
 }
 
@@ -165,10 +167,10 @@ EFL_START_TEST(efl_io_model_test_test_monitor_add)
                            efl_main_loop_get(),
                            efl_io_model_path_set(efl_added, tmpdir));
    printf("DONE\n");
+                           efl_event_callback_add(filemodel, EFL_MODEL_EVENT_CHILD_ADDED, &_children_added_cb, filemodel);
+                           efl_event_callback_add(filemodel, EFL_MODEL_EVENT_CHILD_REMOVED, &_children_removed_cb, NULL);
    fail_if(!filemodel, "ERROR: Cannot init model!\n");
 
-   efl_event_callback_add(filemodel, EFL_MODEL_EVENT_CHILD_ADDED, &_children_added_cb, filemodel);
-   efl_event_callback_add(filemodel, EFL_MODEL_EVENT_CHILD_REMOVED, &_children_removed_cb, NULL);
 
    ecore_main_loop_begin();
 
