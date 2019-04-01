@@ -39,12 +39,16 @@ static const Efl_Test_Case etc[] = {
 
 SUITE_INIT(eio)
 {
+   printf("BEGIN I: ");
    ck_assert_int_eq(eio_init(), 1);
+   printf("DONE\n");
 }
 
 SUITE_SHUTDOWN(eio)
 {
+   printf("BEGIN S: ");
    ck_assert_int_eq(eio_shutdown(), 0);
+   printf("DONE\n");
 }
 
 int
