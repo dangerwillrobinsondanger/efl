@@ -276,7 +276,7 @@ _efl_ui_box_efl_pack_linear_pack_begin(Eo *obj, Efl_Ui_Box_Data *_pd EINA_UNUSED
    ELM_WIDGET_DATA_GET_OR_RETURN(obj, wd, EINA_FALSE);
 
    if (!elm_widget_sub_object_add(obj, subobj)) return EINA_FALSE;
-   if (!evas_object_box_append(wd->resize_obj, subobj))
+   if (!evas_object_box_prepend(wd->resize_obj, subobj))
      {
         elm_widget_sub_object_del(obj, subobj);
         ERR("This widget is already added");
