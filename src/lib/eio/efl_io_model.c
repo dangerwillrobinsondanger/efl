@@ -811,10 +811,10 @@ _efl_io_model_efl_model_children_count_get(const Eo *obj, Efl_Io_Model_Data *pd)
              return 0;
           }
 
+        _efl_io_model_efl_model_monitor_add(pd);
         f = efl_io_manager_direct_ls(iom, pd->path, EINA_FALSE,
                                      (void*) obj, _efl_io_model_children_list, NULL);
         //start to monitor as early as possible, and check if we already published it.
-        _efl_io_model_efl_model_monitor_add(pd);
         pd->request.listing = efl_future_then(obj, f,
                                               .success = _efl_io_model_children_list_on,
                                               .free = _efl_io_model_children_list_cleanup,

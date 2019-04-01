@@ -140,6 +140,7 @@ _children_get(void *data,
           {
              close(fd);
           }
+        printf("CREATED %s\n", temp_filename);
      }
    started_up = EINA_TRUE;
    return v;
