@@ -262,6 +262,7 @@ _efl_ui_box_efl_pack_linear_pack_end(Eo *obj, Efl_Ui_Box_Data *pd EINA_UNUSED, E
    if (!elm_widget_sub_object_add(obj, subobj)) return EINA_FALSE;
    if (!evas_object_box_append(wd->resize_obj, subobj))
      {
+        elm_widget_sub_object_del(obj, subobj);
         ERR("This widget is already added");
         return EINA_FALSE;
      }
@@ -275,7 +276,12 @@ _efl_ui_box_efl_pack_linear_pack_begin(Eo *obj, Efl_Ui_Box_Data *_pd EINA_UNUSED
    ELM_WIDGET_DATA_GET_OR_RETURN(obj, wd, EINA_FALSE);
 
    if (!elm_widget_sub_object_add(obj, subobj)) return EINA_FALSE;
-   if (!evas_object_box_append(wd->resize_obj, subobj)) return EINA_FALSE;
+   if (!evas_object_box_append(wd->resize_obj, subobj))
+     {
+        elm_widget_sub_object_del(obj, subobj);
+        ERR("This widget is already added");
+        return EINA_FALSE;
+     }
 
    return EINA_TRUE;
 }
@@ -291,6 +297,7 @@ _efl_ui_box_efl_pack_linear_pack_before(Eo *obj, Efl_Ui_Box_Data *_pd EINA_UNUSE
    if (!evas_object_box_insert_before(wd->resize_obj, subobj, existing))
      {
         elm_widget_sub_object_del(obj, subobj);
+        ERR("This widget is already added");
         return EINA_FALSE;
      }
 
@@ -308,6 +315,7 @@ _efl_ui_box_efl_pack_linear_pack_after(Eo *obj, Efl_Ui_Box_Data *_pd EINA_UNUSED
    if (!evas_object_box_insert_after(wd->resize_obj, subobj, existing))
      {
         elm_widget_sub_object_del(obj, subobj);
+        ERR("This widget is already added");
         return EINA_FALSE;
      }
 
