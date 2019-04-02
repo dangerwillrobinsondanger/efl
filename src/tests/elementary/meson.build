@@ -157,7 +157,7 @@ efl_ui_compile_test = executable('efl_ui_compile_test',
 
 test('elementary-suite', elementary_suite,
   env : test_env,
-  timeout : 60
+  timeout : 60*10
 )
 
 test('efl-ui-suite', efl_ui_suite,
