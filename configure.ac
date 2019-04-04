@@ -3259,7 +3259,7 @@ EFL_EVAL_PKGS([ECORE_CON])
 
 ### Checks for header files
 
-AC_CHECK_HEADERS([ws2tcpip.h netdb.h sys/filio.h])
+AC_CHECK_HEADERS([netdb.h sys/filio.h])
 
 if test "x${ac_cv_header_netdb_h}" = "xno" && test "x${have_windows}" = "xno"; then
    AC_MSG_ERROR([netdb.h is requested to have Ecore_Con. Exiting...])
@@ -3267,18 +3267,19 @@ fi
 
 ### Checks for types
 
-have_ipv6="no"
-AC_CHECK_TYPES([struct ipv6_mreq],
-   [have_ipv6="yes"],
-   [have_ipv6="no"],
-   [[
+if test "x${have_win32}" = "xyes" ; then
+   have_ipv6="yes"
+else
+   have_ipv6="no"
+   AC_CHECK_TYPES([struct ipv6_mreq],
+      [have_ipv6="yes"],
+      [have_ipv6="no"],
+      [[
 #ifdef HAVE_NETINET_IN_H
 # include <netinet/in.h>
 #endif
-#ifdef HAVE_WS2TCPIP_H
-# include <ws2tcpip.h>
-#endif
-]])
+      ]])
+fi
 
 AC_DEFINE_IF([HAVE_IPV6],
    [test "x${have_ipv6}" = "xyes"],
@@ -4117,7 +4118,6 @@ EFL_ADD_FEATURE([ECORE_AUDIO], [wasapiaudio])
 EFL_LIB_END_OPTIONAL([Ecore_Audio])
 AM_CONDITIONAL([HAVE_ECORE_AUDIO_PULSE], [test "x${want_pulseaudio}" = "xyes"])
 AM_CONDITIONAL([HAVE_ECORE_AUDIO_SNDFILE], [test "x${want_sndfile}" = "xyes"])
-AM_CONDITIONAL([HAVE_ECORE_AUDIO_WASASPI], [test "x${want_wasapiaudio}" = "xyes"])
 
 #### End of Ecore_Audio
 
