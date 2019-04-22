@@ -51,10 +51,8 @@ jobs:
       if: type = cron
       env: DISTRO=Debian96
     - os: linux
-      if: type = cron
       env: DISTRO=Ubuntu1810 BUILDSYSTEM=ninja
     - os: linux
-      if: type = cron
       env: DISTRO=Debian96 BUILDSYSTEM=ninja
 
 services:
