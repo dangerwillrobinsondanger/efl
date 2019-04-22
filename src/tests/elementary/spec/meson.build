@@ -9,11 +9,9 @@ efl_ui_suite_behavior_src = [
   'efl_test_content.c',
 ]
 
-test_generator = find_program('generator.py')
-
 generated_test_parts = custom_target('generate_test_suite',
   output: 'efl_ui_spec_suite_gen.x',
-  command: [test_generator, '@OUTPUT@'],
+  command: [join_paths(meson.current_source_dir(), 'generator.py'), '@OUTPUT@'],
 )
 
 efl_ui_behavior_suite = executable('efl_ui_spec_suite',
