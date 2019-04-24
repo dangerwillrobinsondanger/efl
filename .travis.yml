@@ -49,13 +49,13 @@ jobs:
       env: DISTRO=Ubuntu1810
     - os: linux
       if: type = cron
-      env: DISTRO=Debian96
+      env: DISTRO=Debian98
     - os: linux
       if: type = cron
       env: DISTRO=Ubuntu1810 BUILDSYSTEM=ninja
     - os: linux
       if: type = cron
-      env: DISTRO=Debian96 BUILDSYSTEM=ninja
+      env: DISTRO=Debian98 BUILDSYSTEM=ninja
 
 services:
   - docker
