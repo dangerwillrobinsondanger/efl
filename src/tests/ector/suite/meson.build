@@ -14,5 +14,6 @@ ector_suite = executable('ector_suite',
 )
 
 test('ector-suite', ector_suite,
+  timeout : 60,
   env : test_env
 )

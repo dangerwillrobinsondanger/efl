@@ -13,6 +13,7 @@ eo_signals = executable('eo_signals',
 )
 
 test('eo-signals', eo_signals,
+  timeout : 60,
   env : test_env
 )
 
@@ -25,5 +26,6 @@ eo_signals = executable('eo_signals_dbg',
 )
 
 test('eo-signals-dbg', eo_signals,
+  timeout : 60,
   env : test_env
 )

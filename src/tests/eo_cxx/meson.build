@@ -15,6 +15,6 @@ eo_cxx_suite = executable('eo_cxx_suite',
 )
 
 test('eo_cxx-suite', eo_cxx_suite,
-  timeout : 10*60,
+  timeout : 60,
   env : test_env
 )

@@ -16,6 +16,6 @@ eldbus_cxx_suite = executable('eldbus_cxx_suite',
 )
 
 test('eldbus_cxx-suite', eldbus_cxx_suite,
-  timeout : 10*60,
+  timeout : 60,
   env : test_env
 )

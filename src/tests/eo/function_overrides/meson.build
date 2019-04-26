@@ -19,6 +19,7 @@ eo_function_overrides = executable('eo_function_overrides',
 )
 
 test('eo-function-overrides', eo_interface,
+  timeout : 60,
   env : test_env
 )
 
@@ -31,5 +32,6 @@ eo_function_overrides = executable('eo_function_overrides_dbg',
 )
 
 test('eo-function-overrides-dbg', eo_interface,
+  timeout : 60,
   env : test_env
 )

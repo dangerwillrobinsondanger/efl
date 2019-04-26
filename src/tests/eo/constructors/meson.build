@@ -27,6 +27,7 @@ eo_constructors = executable('eo_constructors',
 )
 
 test('eo-constructors', eo_constructors,
+  timeout : 60,
   env : test_env
 )
 
@@ -39,5 +40,6 @@ eo_constructors = executable('eo_constructors_dbg',
 )
 
 test('eo-constructors-dbg', eo_constructors,
+  timeout : 60,
   env : test_env
 )

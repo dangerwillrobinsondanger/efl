@@ -26,6 +26,6 @@ elua_suite = executable('elua_suite',
 )
 
 test('elua-suite', elua_suite,
-  timeout : 10*60,
+  timeout : 60,
   env : test_env
 )

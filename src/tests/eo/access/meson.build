@@ -16,6 +16,7 @@ eo_access = executable('eo_access',
 )
 
 test('eo-access', eo_access,
+  timeout : 60,
   env : test_env
 )
 
@@ -28,5 +29,6 @@ eo_access = executable('eo_access_dbg',
 )
 
 test('eo-access-dbg', eo_access,
+  timeout : 60,
   env : test_env
 )

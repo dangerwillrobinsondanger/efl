@@ -16,5 +16,6 @@ eeze_suite = executable('eeze_suite',
 )
 
 test('eeze-suite', eeze_suite,
+  timeout : 60,
   env : test_env
 )

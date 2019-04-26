@@ -34,5 +34,6 @@ efl_ui_behavior_suite = executable('efl_ui_spec_suite',
 )
 
 test('efl_ui_spec-suite', efl_ui_behavior_suite,
+  timeout : 60,
   env : test_env
 )

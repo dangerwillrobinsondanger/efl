@@ -23,6 +23,7 @@ eo_mixin = executable('eo_mixin',
 )
 
 test('eo-mixins', eo_mixin,
+  timeout : 60,
   env : test_env
 )
 eo_mixin = executable('eo_mixin_dbg',
@@ -34,5 +35,6 @@ eo_mixin = executable('eo_mixin_dbg',
 )
 
 test('eo-mixins-dbg', eo_mixin,
+  timeout : 60,
   env : test_env
 )

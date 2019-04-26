@@ -112,5 +112,6 @@ env_mono.set('LD_LIBRARY_PATH', load_lib)
 
 test('efl-mono-suite',
   efl_mono_suite,
+  timeout : 60,
   env : env_mono
 )

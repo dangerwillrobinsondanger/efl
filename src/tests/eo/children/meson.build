@@ -13,6 +13,7 @@ eo_children = executable('eo_children',
 )
 
 test('eo-children', eo_children,
+  timeout : 60,
   env : test_env
 )
 
@@ -25,5 +26,6 @@ eo_children = executable('eo_children_dbg',
 )
 
 test('eo-children-dbg', eo_children,
+  timeout : 60,
   env : test_env
 )

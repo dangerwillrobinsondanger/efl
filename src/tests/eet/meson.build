@@ -23,5 +23,6 @@ eet_suite = executable('eet_suite',
 )
 
 test('eet-suite', eet_suite,
+  timeout : 60,
   env : test_env
 )

@@ -16,5 +16,6 @@ ecore_con_suite = executable('ecore_con_suite',
 )
 
 test('ecore_con-suite', ecore_con_suite,
+  timeout : 60,
   env : test_env
 )

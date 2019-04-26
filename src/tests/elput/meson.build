@@ -13,5 +13,6 @@ elput_suite = executable('elput_suite',
 )
 
 test('elput-suite', elput_suite,
+  timeout : 60,
   env : test_env
 )

@@ -17,6 +17,7 @@ eo_interface = executable('eo_interface',
 )
 
 test('eo-interface', eo_interface,
+  timeout : 60,
   env : test_env
 )
 
@@ -29,5 +30,6 @@ eo_interface = executable('eo_interface_dbg',
 )
 
 test('eo-interface-dbg', eo_interface,
+  timeout : 60,
   env : test_env
 )

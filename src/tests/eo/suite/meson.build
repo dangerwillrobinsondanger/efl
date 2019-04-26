@@ -30,6 +30,7 @@ eo_suite = executable('eo_suite',
 )
 
 test('eo-suite', eo_suite,
+  timeout : 60,
   env : test_env
 )
 
@@ -43,6 +44,7 @@ eo_suite = executable('eo_suite_dbg',
 )
 
 test('eo-suite-dbg', eo_suite,
+  timeout : 60,
   env : test_env
 )
 
@@ -57,5 +59,6 @@ eo_suite = executable('eo_suite_fallback',
 )
 
 test('eo-suite-fallback', eo_suite,
+  timeout : 60,
   env : test_env
 )

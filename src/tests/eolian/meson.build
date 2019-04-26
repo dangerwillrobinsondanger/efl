@@ -36,6 +36,6 @@ eolian_suite = executable('eolian_suite',
 )
 
 test('eolian', eolian_suite,
-  timeout: 30,
+  timeout: 60,
   env : test_env
 )

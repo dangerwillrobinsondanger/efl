@@ -15,6 +15,7 @@ eo_composite_objects = executable('eo_composite_objects',
 )
 
 test('eo-composite-objects', eo_composite_objects,
+  timeout : 60,
   env : test_env
 )
 
@@ -27,5 +28,6 @@ eo_composite_objects = executable('eo_composite_objects_dbg',
 )
 
 test('eo-composite-objects-dbg', eo_composite_objects,
+  timeout : 60,
   env : test_env
 )
