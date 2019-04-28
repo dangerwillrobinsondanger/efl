@@ -1,0 +1,11 @@
+class @beta Efl.Ui.Active_View.View_Manager_Stack extends Efl.Ui.Active_View.View_Manager
+{
+   implements {
+      Efl.Ui.Active_View.View_Manager.bind;
+      Efl.Ui.Active_View.View_Manager.content_update;
+      Efl.Ui.Active_View.View_Manager.request_switch;
+      Efl.Ui.Active_View.View_Manager.view_size {set;}
+      Efl.Ui.Active_View.View_Manager.animation {set; get;}
+      Efl.Object.destructor;
+   }
+}
