@@ -465,9 +465,9 @@ struct klass
 
          // Native method definitions
          if(!as_generator(
-                indent << scope_tab << "#pragma warning disable CA1707, SA1300, SA1600\n\n"
+                indent << scope_tab << "#pragma warning disable CA1707, CS1591, SA1300, SA1600\n\n"
                 <<  *(native_function_definition(cls))
-                << indent << scope_tab << "#pragma warning restore CA1707, SA1300, SA1600\n\n")
+                << indent << scope_tab << "#pragma warning restore CA1707, CS1591, SA1300, SA1600\n\n")
             .generate(sink, implementable_methods, change_indentation(indent.inc(), inative_cxt))) return false;
 
          if(!as_generator("}\n").generate(sink, attributes::unused, inative_cxt)) return false;

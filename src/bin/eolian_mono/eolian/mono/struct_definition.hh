@@ -267,7 +267,8 @@ struct struct_internal_definition_generator
      auto const& indent = current_indentation(context);
      if (!as_generator
          (
-          indent << "///<summary>Internal wrapper for struct " << string << ".</summary>\n"
+          indent << "#pragma warning disable CS1591\n\n"
+          << indent << "///<summary>Internal wrapper for struct " << string << ".</summary>\n"
           << indent << "[StructLayout(LayoutKind.Sequential)]\n"
           << indent << "public struct " << string << "\n"
           << indent << "{\n"
@@ -367,7 +368,9 @@ struct struct_internal_definition_generator
        return false;
 
      // close internal class
-     if(!as_generator(indent << "}\n\n").generate(sink, attributes::unused, context)) return false;
+     if(!as_generator(indent << "}\n\n"
+                      << indent << "#pragma warning restore CS1591\n\n"
+                 ).generate(sink, attributes::unused, context)) return false;
 
      return true;
   }
