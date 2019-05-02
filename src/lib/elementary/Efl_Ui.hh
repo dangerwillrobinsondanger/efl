@@ -1,7 +1,7 @@
-#ifndef EFL_CXX_ELEMENTARY_HH
-#define EFL_CXX_ELEMENTARY_HH
+#ifndef EFL_CXX_EFL_UI_HH
+#define EFL_CXX_EFL_UI_HH
 #if defined(ELEMENTARY_H) || defined(ELM_WIDGET_H)
-#error "Do not include Elm C API headers before including Elementary.hh"
+#error "Do not include Elm C API headers before including Efl_Ui.hh"
 #endif
 
 #ifndef EFL_BETA_API_SUPPORT
