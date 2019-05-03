@@ -106,6 +106,14 @@ typedef int Eina_Error;
 EAPI extern Eina_Error EINA_ERROR_OUT_OF_MEMORY EINA_DEPRECATED; /* use ENOMEM */
 
 /**
+ * @var EINA_ERROR_INCORRECT_PARAMETER
+ * @brief The error identifier corresponding to lack of memory.
+ *
+ * @deprecated since 1.23, same as @c ENOMEM from @c errno.h
+ */
+EAPI extern Eina_Error EINA_ERROR_INCORRECT_PARAMETER;
+
+/**
  * @brief Registers a new error type.
  * @details This function stores the error message described by
  *          @p msg in a list. The returned value is a unique identifier greater than or equal

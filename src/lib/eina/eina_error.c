@@ -133,6 +133,7 @@ static inline int strerror_r(int errnum, char *buf, size_t buflen)
  */
 
 EAPI Eina_Error EINA_ERROR_OUT_OF_MEMORY = ENOMEM;
+EAPI Eina_Error EINA_ERROR_INCORRECT_PARAMETER = 0;
 
 /**
  * @endcond
@@ -163,6 +164,8 @@ eina_error_init(void)
    if (!_eina_errno_msgs) goto failed_hash;
 #endif
 
+   EINA_ERROR_INCORRECT_PARAMETER = eina_error_msg_static_register("Incorrect parameter");
+
    return EINA_TRUE;
 
 #ifdef EINA_HAVE_THREADS
@@ -190,6 +193,8 @@ Eina_Bool
 eina_error_shutdown(void)
 {
    Eina_Error_Message *eem, *eem_end;
+
+   EINA_ERROR_INCORRECT_PARAMETER = 0;
 
    eem = _eina_errors;
    eem_end = eem + _eina_errors_count;
