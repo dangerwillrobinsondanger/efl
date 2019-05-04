@@ -101,9 +101,9 @@ _item_mouse_up(void *data,
    edje_object_signal_emit(wd->resize_obj, "efl,state,unpressed", "efl");
    efl_event_callback_call(item, EFL_UI_EVENT_UNPRESSED, NULL);
 
-   if ((*(pd->select_mode) != EFL_UI_SELECT_MODE_SINGLE_ALWAYS) && (pd->selected))
+   if (pd->select_mode && (*(pd->select_mode) != EFL_UI_SELECT_MODE_SINGLE_ALWAYS) && (pd->selected))
      _item_unselect(item, pd);
-   else if (*(pd->select_mode) != EFL_UI_SELECT_MODE_NONE)
+   else if (pd->select_mode && *(pd->select_mode) != EFL_UI_SELECT_MODE_NONE)
      _item_select(item, pd);
 }
 
