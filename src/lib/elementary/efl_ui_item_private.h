@@ -10,7 +10,6 @@ typedef struct _Efl_Ui_Item_Data
    Eo *parent; /* Parent Widget */
 
    Efl_Ui_Select_Mode  *select_mode; /* Select Mdoe of parent widget */
-   Ecore_Timer *longpress_timer; /* Timer for longpress handle */
 
    // Boolean Data
    Eina_Bool  selected : 1; /* State for item selected */

@@ -4,6 +4,7 @@
 
 #define EFL_ACCESS_PROTECTED
 #define EFL_UI_WIDGET_PART_BG_PROTECTED
+#define EFL_UI_CLICKABLE_PROTECTED
 
 #include <Elementary.h>
 
@@ -41,19 +42,6 @@ _item_unselect(Eo *obj, Efl_Ui_Item_Data *pd)
    efl_event_callback_call(obj, EFL_UI_EVENT_ITEM_UNSELECTED, NULL);
 }
 
-/* Mouse Controls */
-static Eina_Bool
-_item_longpressed(void *data)
-{
-   Efl_Ui_Item *item = data;
-   EFL_UI_ITEM_DATA_GET_OR_RETURN(item, pd, ECORE_CALLBACK_CANCEL);
-
-   pd->longpress_timer = NULL;
-
-   efl_event_callback_call(item, EFL_UI_EVENT_LONGPRESSED, NULL);
-   return ECORE_CALLBACK_CANCEL;
-}
-
 static void
 _item_mouse_down(void *data,
                  Evas *evas EINA_UNUSED,
@@ -69,8 +57,7 @@ _item_mouse_down(void *data,
 
    edje_object_signal_emit(wd->resize_obj, "efl,state,pressed", "efl");
 
-   pd->longpress_timer = ecore_timer_add(_elm_config->longpress_timeout, _item_longpressed, item);
-   efl_event_callback_call(item, EFL_UI_EVENT_PRESSED, NULL);
+   efl_ui_clickable_press(item, 1);
 }
 
 static void
@@ -92,14 +79,8 @@ _item_mouse_up(void *data,
         return;
      }
 
-   if (pd->longpress_timer)
-     {
-        ecore_timer_del(pd->longpress_timer);
-        pd->longpress_timer = NULL;
-     }
-
    edje_object_signal_emit(wd->resize_obj, "efl,state,unpressed", "efl");
-   efl_event_callback_call(item, EFL_UI_EVENT_UNPRESSED, NULL);
+   efl_ui_clickable_unpress(item, 1);
 
    if (pd->select_mode && (*(pd->select_mode) != EFL_UI_SELECT_MODE_SINGLE_ALWAYS) && (pd->selected))
      _item_unselect(item, pd);
