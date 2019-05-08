@@ -265,7 +265,6 @@ case "$host_vendor" in
    ;;
 esac
 
-AC_DEFINE([_POSIX_C_SOURCE], [1], [Define the POSIX version])
 AC_SUBST([MODULE_ARCH])
 AC_DEFINE_UNQUOTED([MODULE_ARCH], ["${MODULE_ARCH}"], ["Module architecture"])
 AC_DEFINE_UNQUOTED([SHARED_LIB_SUFFIX], ["${MODULE_EXT}"], [Suffix for shared objects])
@@ -299,6 +298,7 @@ if test "x${have_win32}" = "xyes" ; then
     # autotools macro and CXX is always set to g++ even if
     # it's not found. So we are using an internal variable
     # that does the work for now, may get broken in the future.
+    AC_DEFINE([_POSIX_C_SOURCE], [200809L], [Define the POSIX version])
     if test "x${ac_ct_CXX}" = "x" -a "x${CXX}" = "xg++"; then
        AC_MSG_ERROR([efl requires a C++ compiler got ${ac_ct_CXX} and ${CXX}.])
     fi
