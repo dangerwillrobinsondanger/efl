@@ -216,65 +216,18 @@ struct klass
          if(!as_generator
             (
              documentation
-             << "sealed public class " << concrete_name << " : " << "\n"
-             << (klass_full_concrete_or_interface_name % ",") << "\n"
-             << (inherit_classes.size() > 0 ? ", " : "" ) << interface_name << "\n"
-             << scope_tab << *(", " << name_helpers::klass_full_concrete_or_interface_name) << "\n"
+             << "public static class " << concrete_name << "\n"
              << "{\n"
             ).generate(sink, std::make_tuple(cls, inherit_classes, inherit_interfaces), concrete_cxt))
               return false;
 
-         if (!generate_fields(sink, cls, concrete_cxt))
+
+         if(!as_generator(
+                 scope_tab << "[System.Runtime.InteropServices.DllImport(" << context_find_tag<library_context>(context).actual_library_name(cls.filename)
+                 << ")] internal static extern System.IntPtr\n"
+                 << scope_tab << scope_tab << name_helpers::klass_get_name(cls) << "();\n"
+                ).generate(sink, attributes::unused, context))
            return false;
-
-         bool root = !helpers::has_regular_ancestor(cls);
-         if (!as_generator
-            (
-             scope_tab << "[System.Runtime.InteropServices.DllImport(" << context_find_tag<library_context>(concrete_cxt).actual_library_name(cls.filename)
-             << ")] internal static extern System.IntPtr\n"
-             << scope_tab << scope_tab << name_helpers::klass_get_name(cls) << "();\n"
-             << scope_tab << "/// <summary>Initializes a new instance of the <see cref=\"" << interface_name << "\"/> class.\n"
-             << scope_tab << "/// Internal usage: This is used when interacting with C code and should not be used directly.</summary>\n"
-             << scope_tab << "private " << concrete_name << "(System.IntPtr raw)" << (root ? "" : " : base(raw)") << "\n"
-             << scope_tab << "{\n"
-             << scope_tab << scope_tab << (root ? "handle = raw;\n" : "")
-             << scope_tab << "}\n"
-            )
-            .generate(sink, attributes::unused, concrete_cxt))
-           return false;
-
-         if (!generate_dispose_methods(sink, cls, concrete_cxt))
-           return false;
-
-         if (!generate_equals_method(sink, concrete_cxt))
-           return false;
-
-         if (!generate_events(sink, cls, concrete_cxt))
-             return false;
-
-         // Parts
-         if(!as_generator(*(part_definition))
-            .generate(sink, cls.parts, concrete_cxt)) return false;
-
-         // Concrete function definitions
-         auto implemented_methods = helpers::get_all_implementable_methods(cls);
-         if(!as_generator(*(function_definition))
-            .generate(sink, implemented_methods, concrete_cxt)) return false;
-
-         // Async wrappers
-         if(!as_generator(*(async_function_definition)).generate(sink, implemented_methods, concrete_cxt))
-           return false;
-
-         // Property wrappers
-         if (!as_generator(*(property_wrapper_definition(cls))).generate(sink, cls.properties, concrete_cxt))
-           return false;
-
-         for (auto&& klass : helpers::non_implemented_interfaces(cls, concrete_cxt))
-           {
-              attributes::klass_def c(get_klass(klass, cls.unit), cls.unit);
-              if (!as_generator(*(property_wrapper_definition(cls))).generate(sink, c.properties, concrete_cxt))
-                return false;
-           }
 
          // Copied from nativeinherit class, used when setting up providers.
          if(!as_generator(

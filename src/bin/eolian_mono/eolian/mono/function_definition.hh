@@ -84,16 +84,12 @@ struct native_function_definition_generator
     if(!as_generator(eolian_mono::type(true)).generate(std::back_inserter(return_type), f.return_type, context))
       return false;
 
-    std::string klass_cast_name;
-    if (klass->type != attributes::class_type::interface_)
-      klass_cast_name = name_helpers::klass_inherit_name(*klass);
-    else
-      klass_cast_name = name_helpers::klass_interface_name(*klass);
-
+    std::string klass_cast_name = name_helpers::klass_full_concrete_or_interface_name(*klass);
     std::string self = "Efl.Eo.Globals.efl_super(obj, Efl.Eo.Globals.efl_class_get(obj))";
 
+    // Static functions do not need to be called from C, so we only declare their native dllimport replacements.
     if (f.is_static)
-      self = "";
+      return true;
 
     if(!as_generator
        (indent << "private static "
@@ -139,10 +135,6 @@ struct native_function_definition_generator
                                       )
                  , context))
       return false;
-
-    // Static functions do not need to be called from C
-    if (f.is_static)
-      return true;
 
     // This is the delegate that will be passed to Eo to be called from C.
     if(!as_generator(

@@ -154,8 +154,7 @@ struct to_external_field_convert_generator
 
       if (klass)
         {
-           auto interface_name = name_helpers::klass_full_interface_name(*klass);
-           auto concrete_name = name_helpers::klass_full_concrete_name(*klass);
+           auto concrete_name = name_helpers::klass_full_concrete_or_interface_name(*klass);
            if (!as_generator(
                  "\n"
                  << indent << scope_tab << scope_tab << "_external_struct." << string
