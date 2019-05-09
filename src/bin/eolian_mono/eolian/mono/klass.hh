@@ -47,6 +47,7 @@ static bool generate_equals_method(OutputIterator sink, Context const &context)
        << scope_tab << scope_tab << "}\n"
        << scope_tab << scope_tab << "return this.NativeHandle == other.NativeHandle;\n"
        << scope_tab << "}\n\n"
+
        << scope_tab << "/// <summary>Gets the hash code for this object based on the native pointer it points to.</summary>\n"
        << scope_tab << "/// <returns>The value of the pointer, to be used as the hash code of this object.</returns>\n"
        << scope_tab << "public override int GetHashCode()\n"
@@ -573,7 +574,7 @@ struct klass
      }
 
      // Detailed constructors go only in root classes.
-     return as_generator(
+     if (!as_generator(
              /// Actual root costructor that creates class and instantiates 
              scope_tab << "/// <summary>Initializes a new instance of the <see cref=\"" << inherit_name << "\"/> class.\n"
              << scope_tab << "/// Internal usage: Constructor to actually call the native library constructors. C# subclasses\n"
@@ -594,7 +595,18 @@ struct klass
              << scope_tab << scope_tab << "{\n"
              << scope_tab << scope_tab << scope_tab << "Efl.Eo.Globals.PrivateDataSet(this);\n"
              << scope_tab << scope_tab << "}\n"
-             << scope_tab << "}\n\n"
+             ).generate(sink, attributes::unused, context))
+          return false;
+
+        if (cls.get_all_events().size() > 0)
+          if (!as_generator(
+               scope_tab << scope_tab << "var eventsHandle = GCHandle.Alloc(eoEvents);\n"
+               << scope_tab << scope_tab << "Efl.Eo.Globals.efl_key_data_set(handle, Efl.Eo.Globals.efl_mono_wrapper_supervisor_key_get(), GCHandle.ToIntPtr(eventsHandle));\n"
+               ).generate(sink,attributes::unused, context))
+            return false;
+
+        return as_generator(
+             scope_tab << "}\n\n"
 
              << scope_tab << "/// <summary>Finishes instantiating this object.\n"
              << scope_tab << "/// Internal usage by generated code.</summary>\n"
@@ -619,17 +631,17 @@ struct klass
      auto inherit_name = name_helpers::klass_concrete_name(cls);
 
      std::string events_gchandle;
-     if (cls.get_all_events().size() > 0)
-       {
-           auto events_gchandle_sink = std::back_inserter(events_gchandle);
-           if (!as_generator(scope_tab << scope_tab << scope_tab << "if (eoEvents.Count != 0)\n"
-                             << scope_tab << scope_tab << scope_tab << "{\n"
-                             << scope_tab << scope_tab << scope_tab << scope_tab << "GCHandle gcHandle = GCHandle.Alloc(eoEvents);\n"
-                             << scope_tab << scope_tab << scope_tab << scope_tab << "gcHandlePtr = GCHandle.ToIntPtr(gcHandle);\n"
-                             << scope_tab << scope_tab << scope_tab << "}\n\n")
-                 .generate(events_gchandle_sink, attributes::unused, context))
-             return false;
-       }
+     /* if (cls.get_all_events().size() > 0) */
+     /*   { */
+     /*       auto events_gchandle_sink = std::back_inserter(events_gchandle); */
+     /*       if (!as_generator(scope_tab << scope_tab << scope_tab << "if (eoEvents.Count != 0)\n" */
+     /*                         << scope_tab << scope_tab << scope_tab << "{\n" */
+     /*                         << scope_tab << scope_tab << scope_tab << scope_tab << "GCHandle gcHandle = GCHandle.Alloc(eoEvents);\n" */
+     /*                         << scope_tab << scope_tab << scope_tab << scope_tab << "gcHandlePtr = GCHandle.ToIntPtr(gcHandle);\n" */
+     /*                         << scope_tab << scope_tab << scope_tab << "}\n\n") */
+     /*             .generate(events_gchandle_sink, attributes::unused, context)) */
+     /*         return false; */
+     /*   } */
 
      return as_generator(
 

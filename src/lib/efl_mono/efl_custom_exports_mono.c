@@ -37,9 +37,14 @@ EAPI void efl_mono_gchandle_callbacks_set(Efl_Mono_Free_GCHandle_Cb free_gchandl
 
 EAPI void efl_mono_native_dispose(Eo *obj, void* gchandle)
 {
-   if (gchandle) _efl_mono_remove_events_call(obj, gchandle);
+   /* if (gchandle) _efl_mono_remove_events_call(obj, gchandle); */
    efl_unref(obj);
-   if (gchandle) _efl_mono_free_gchandle_call(gchandle);
+   /* if (gchandle) _efl_mono_free_gchandle_call(gchandle); */
+}
+
+EAPI const char *efl_mono_wrapper_supervisor_key_get()
+{
+   return "_c#_wrapper_supervisor";
 }
 
 typedef struct _Efl_Mono_Native_Dispose_Data

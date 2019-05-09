@@ -201,6 +201,17 @@ public class Globals
     [DllImport(efl.Libs.Eo)] [return: MarshalAs(UnmanagedType.U1)] public static extern bool
         efl_event_callback_call(IntPtr obj, IntPtr desc, IntPtr event_info);
 
+public delegate void efl_key_data_set_delegate(IntPtr obj, IntPtr key, IntPtr data);
+public static FunctionWrapper<efl_key_data_set_delegate> efl_key_data_set_ptr = new FunctionWrapper<efl_key_data_set_delegate>(efl.Libs.EoModule, "efl_key_data_set");
+public static void efl_key_data_set(IntPtr obj, IntPtr key, IntPtr data) => efl_key_data_set_ptr.Value.Delegate(obj, key, data);
+
+public delegate IntPtr efl_key_data_get_delegate(IntPtr obj, IntPtr key);
+public static FunctionWrapper<efl_key_data_get_delegate> efl_key_data_get_ptr = new FunctionWrapper<efl_key_data_get_delegate>(efl.Libs.EoModule, "efl_key_data_get");
+public static IntPtr efl_key_data_get(IntPtr obj, IntPtr key) => efl_key_data_get_ptr.Value.Delegate(obj, key);
+
+[DllImport(efl.Libs.CustomExports)] public static extern IntPtr efl_mono_wrapper_supervisor_key_get();
+
+
     public const int RTLD_NOW = 2;
 
     public delegate byte class_initializer(IntPtr klass);
