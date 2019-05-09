@@ -40,6 +40,16 @@ enum @beta Efl.Gfx.Image_Scale_Type
    none         [[Not scale the image]]
 }
 
+struct Efl.Gfx.Image.Stretch_Zone
+{
+   [[This struct hold the description of a stretchable zone used when scaling image.
+
+     Total of offset and length together shouldn't be bigger than the total image pixels size.
+   ]]
+   offset: uint; [[Starting pixel point of the stretchable zone.]]
+   length: uint; [[Length of the stretchable zone]]
+}
+
 interface @beta Efl.Gfx.Image
 {
    [[Common APIs for all 2D images that can be rendered on the canvas.]]
@@ -139,6 +149,24 @@ interface @beta Efl.Gfx.Image
          values {
             fill: Efl.Gfx.Border_Fill_Mode; [[Fill mode of the center region.]]
          }
+      }
+      @property stretch_zone {
+         [[This function define the stretchable pixels zone of an image.
+
+           The iterator will be walked once and destroyed. It will remember the
+	   information for the lifetime of the object. It will ignore all value
+	   of .border, .border_scale and .border_center_fill . To reset the object
+	   you can just pass $null to both horizontal and vertical at the same
+	   time.
+	 ]]
+	 set {
+           return: Eina.Error; [[return an error code if the stretch_zone provided are incorrect.]]
+	 }
+	 get {}
+         values {
+	    horizontal: iterator<ptr(Efl.Gfx.Image.Stretch_Zone)>; [[]]
+	    vertical: iterator<ptr(Efl.Gfx.Image.Stretch_Zone)>; [[]]
+	 }
       }
       @property image_size {
          [[This represents the size of the original image in pixels.
