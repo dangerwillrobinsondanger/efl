@@ -157,11 +157,13 @@ efl_ui_compile_test = executable('efl_ui_compile_test',
 )
 
 test('elementary-suite', elementary_suite,
-  env : test_env
+  env : test_env,
+  timeout : 10*60 #10 min. can be realistic, this testsuite is slow!
 )
 
 test('efl-ui-suite', efl_ui_suite,
-  env : test_env
+  env : test_env,
+  timeout : 10*60 #10 min. can be realistic, this testsuite is slow!
 )
 
 install_data(files(['testdiff.diff', 'testfile-windows.txt', 'testfile-withblanks.txt', 'testfile.txt']),
