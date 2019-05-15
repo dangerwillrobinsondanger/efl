@@ -1,4 +1,4 @@
-import efl_ui_direction;
+import efl_ui_directed;
 
 interface @beta Efl.Pack_Table extends Efl.Pack
 {
@@ -80,7 +80,7 @@ interface @beta Efl.Pack_Table extends Efl.Pack
          [[Primary and secondary up/left/right/down directions for linear apis.
 
            Default is horizontal and vertical.
-           This overrides @Efl.Ui.Direction.direction.
+           This overrides @Efl.Ui.Directed.direction.
          ]]
          set {}
          get {}

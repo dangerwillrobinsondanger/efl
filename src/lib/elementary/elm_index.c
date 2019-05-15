@@ -1571,7 +1571,7 @@ _elm_index_item_letter_get(const Eo *item EINA_UNUSED, Elm_Index_Item_Data *it)
 }
 
 EOLIAN static void
-_elm_index_efl_ui_direction_direction_set(Eo *obj, Elm_Index_Data *sd, Efl_Ui_Dir dir)
+_elm_index_efl_ui_directed_direction_set(Eo *obj, Elm_Index_Data *sd, Efl_Ui_Dir dir)
 {
    // Adjust direction to be either horizontal or vertical.
    if (efl_ui_dir_is_horizontal(dir, EINA_FALSE))
@@ -1585,7 +1585,7 @@ _elm_index_efl_ui_direction_direction_set(Eo *obj, Elm_Index_Data *sd, Efl_Ui_Di
 }
 
 EOLIAN static Efl_Ui_Dir
-_elm_index_efl_ui_direction_direction_get(const Eo *obj EINA_UNUSED, Elm_Index_Data *sd)
+_elm_index_efl_ui_directed_direction_get(const Eo *obj EINA_UNUSED, Elm_Index_Data *sd)
 {
    return sd->dir;
 }

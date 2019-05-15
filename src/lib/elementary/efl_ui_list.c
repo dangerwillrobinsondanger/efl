@@ -574,7 +574,7 @@ _efl_ui_list_efl_container_content_iterate(Eo *obj EINA_UNUSED, Efl_Ui_List_Data
 
 /* FIXME: Direction is not supported yet in the list
    EOLIAN static void
-   _efl_ui_list_efl_ui_direction_direction_set(Eo *obj, Efl_Ui_List_Data *pd, Efl_Ui_Dir dir)
+   _efl_ui_list_efl_ui_directed_direction_set(Eo *obj, Efl_Ui_List_Data *pd, Efl_Ui_Dir dir)
    {
    switch (dir)
      {

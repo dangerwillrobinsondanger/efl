@@ -721,7 +721,7 @@ _efl_ui_slider_efl_object_destructor(Eo *obj,
 }
 
 EOLIAN static void
-_efl_ui_slider_efl_ui_direction_direction_set(Eo *obj, Efl_Ui_Slider_Data *sd, Efl_Ui_Dir dir)
+_efl_ui_slider_efl_ui_directed_direction_set(Eo *obj, Efl_Ui_Slider_Data *sd, Efl_Ui_Dir dir)
 {
    sd->dir = dir;
 
@@ -729,7 +729,7 @@ _efl_ui_slider_efl_ui_direction_direction_set(Eo *obj, Efl_Ui_Slider_Data *sd, E
 }
 
 EOLIAN static Efl_Ui_Dir
-_efl_ui_slider_efl_ui_direction_direction_get(const Eo *obj EINA_UNUSED, Efl_Ui_Slider_Data *sd)
+_efl_ui_slider_efl_ui_directed_direction_get(const Eo *obj EINA_UNUSED, Efl_Ui_Slider_Data *sd)
 {
    return sd->dir;
 }

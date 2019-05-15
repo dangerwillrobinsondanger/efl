@@ -835,7 +835,7 @@ _efl_ui_grid_efl_container_content_iterate(Eo *obj, Efl_Ui_Grid_Data *pd)
 }
 
 EOLIAN static void
-_efl_ui_grid_efl_ui_direction_direction_set(Eo *obj EINA_UNUSED, Efl_Ui_Grid_Data *pd, Efl_Ui_Dir dir)
+_efl_ui_grid_efl_ui_directed_direction_set(Eo *obj EINA_UNUSED, Efl_Ui_Grid_Data *pd, Efl_Ui_Dir dir)
 {
    //FIXME: Currently only support horizontal and vertical mode.
    switch (dir)
@@ -862,7 +862,7 @@ _efl_ui_grid_efl_ui_direction_direction_set(Eo *obj EINA_UNUSED, Efl_Ui_Grid_Dat
 }
 
 EOLIAN static Efl_Ui_Dir
-_efl_ui_grid_efl_ui_direction_direction_get(const Eo *obj EINA_UNUSED, Efl_Ui_Grid_Data *pd)
+_efl_ui_grid_efl_ui_directed_direction_get(const Eo *obj EINA_UNUSED, Efl_Ui_Grid_Data *pd)
 {
    return pd->dir;
 }

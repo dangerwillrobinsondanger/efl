@@ -541,7 +541,7 @@ _efl_ui_panes_split_ratio_set(Eo *obj, Efl_Ui_Panes_Data *sd, double ratio)
 }
 
 EOLIAN static void
-_efl_ui_panes_efl_ui_direction_direction_set(Eo *obj, Efl_Ui_Panes_Data *sd, Efl_Ui_Dir dir)
+_efl_ui_panes_efl_ui_directed_direction_set(Eo *obj, Efl_Ui_Panes_Data *sd, Efl_Ui_Dir dir)
 {
    double size = elm_panes_content_left_size_get(obj);
    if (efl_ui_dir_is_horizontal(dir, EINA_FALSE))
@@ -558,7 +558,7 @@ _efl_ui_panes_efl_ui_direction_direction_set(Eo *obj, Efl_Ui_Panes_Data *sd, Efl
 }
 
 EOLIAN static Efl_Ui_Dir
-_efl_ui_panes_efl_ui_direction_direction_get(const Eo *obj EINA_UNUSED, Efl_Ui_Panes_Data *sd)
+_efl_ui_panes_efl_ui_directed_direction_get(const Eo *obj EINA_UNUSED, Efl_Ui_Panes_Data *sd)
 {
    return sd->dir;
 }

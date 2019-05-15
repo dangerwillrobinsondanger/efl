@@ -1,4 +1,4 @@
-parse efl_ui_direction;
+parse efl_ui_directed;
 
 enum @beta Efl.Orient
 {

@@ -1,4 +1,4 @@
-import efl_ui_direction;
+import efl_ui_directed;
 
 enum @beta Efl.Ui.Flip_Mode
 {

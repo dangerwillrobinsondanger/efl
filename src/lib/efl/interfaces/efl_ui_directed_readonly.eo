@@ -1,0 +1,6 @@
+mixin @beta Efl.Ui.Directed_Readonly extends Efl.Ui.Directed
+{
+  implements {
+    Efl.Ui.Directed.direction { set; [[This will always print and error that this is a readonly object]]}
+  }
+}

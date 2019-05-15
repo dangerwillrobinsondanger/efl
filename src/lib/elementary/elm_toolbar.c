@@ -3712,7 +3712,7 @@ _elm_toolbar_item_state_prev(Eo *eo_item EINA_UNUSED, Elm_Toolbar_Item_Data *ite
 }
 
 EOLIAN static void
-_elm_toolbar_efl_ui_direction_direction_set(Eo *obj, Elm_Toolbar_Data *sd, Efl_Ui_Dir dir)
+_elm_toolbar_efl_ui_directed_direction_set(Eo *obj, Elm_Toolbar_Data *sd, Efl_Ui_Dir dir)
 {
    // Adjust direction to be either horizontal or vertical.
    if (efl_ui_dir_is_horizontal(dir, EINA_TRUE))
@@ -3731,7 +3731,7 @@ _elm_toolbar_efl_ui_direction_direction_set(Eo *obj, Elm_Toolbar_Data *sd, Efl_U
 }
 
 EOLIAN static Efl_Ui_Dir
-_elm_toolbar_efl_ui_direction_direction_get(const Eo *obj EINA_UNUSED, Elm_Toolbar_Data *sd)
+_elm_toolbar_efl_ui_directed_direction_get(const Eo *obj EINA_UNUSED, Elm_Toolbar_Data *sd)
 {
    return sd->dir;
 }

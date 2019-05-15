@@ -1,4 +1,3 @@
-// FIXME: Documentation lacks proper references due to cyclic imports.
 // FIXME: What about AnyRTL? And other strange directions?
 
 parse efl_orientation;
@@ -11,7 +10,7 @@ enum @beta Efl.Ui.Dir
      enum is used to define how widgets should expand and orient themselves,
      not to rotate images.
 
-     See also @Efl.Ui.Direction.
+     See also @Efl.Ui.Directed.
    ]]
    default = 0,[[Default direction. Each widget may have a different default.]]
    horizontal, [[Horizontal direction, along the X axis. Usually left-to-right,
@@ -25,14 +24,15 @@ enum @beta Efl.Ui.Dir
    left = Efl.Ui.Dir.rtl, [[Left is an alias for RTL.]]
 }
 
-interface @beta Efl.Ui.Direction
+interface @beta Efl.Ui.Directed
 {
-   [[EFL UI object direction interface]]
+   [[Interface for objects which have a direction.]]
+   c_prefix: efl_ui;
    methods {
        @property direction {
          [[Control the direction of a given widget.
 
-           Use this function to change how your widget is to be disposed:
+           Use this function to change how your widget is to be laid out:
            vertically or horizontally or inverted vertically or inverted
            horizontally.
 

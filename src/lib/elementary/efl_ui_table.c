@@ -620,7 +620,7 @@ _efl_ui_table_efl_pack_table_table_contents_get(Eo *obj EINA_UNUSED, Efl_Ui_Tabl
 }
 
 EOLIAN static void
-_efl_ui_table_efl_ui_direction_direction_set(Eo *obj, Efl_Ui_Table_Data *pd, Efl_Ui_Dir dir)
+_efl_ui_table_efl_ui_directed_direction_set(Eo *obj, Efl_Ui_Table_Data *pd, Efl_Ui_Dir dir)
 {
    if (pd->dir1 == dir)
      return;
@@ -645,7 +645,7 @@ _efl_ui_table_efl_ui_direction_direction_set(Eo *obj, Efl_Ui_Table_Data *pd, Efl
 }
 
 EOLIAN static Efl_Ui_Dir
-_efl_ui_table_efl_ui_direction_direction_get(const Eo *obj EINA_UNUSED, Efl_Ui_Table_Data *pd)
+_efl_ui_table_efl_ui_directed_direction_get(const Eo *obj EINA_UNUSED, Efl_Ui_Table_Data *pd)
 {
    return pd->dir1;
 }

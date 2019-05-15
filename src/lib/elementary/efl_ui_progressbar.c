@@ -447,7 +447,7 @@ _efl_ui_progressbar_pulse_mode_get(const Eo *obj EINA_UNUSED, Efl_Ui_Progressbar
 }
 
 EOLIAN static void
-_efl_ui_progressbar_efl_ui_direction_direction_set(Eo *obj, Efl_Ui_Progressbar_Data *sd, Efl_Ui_Dir dir)
+_efl_ui_progressbar_efl_ui_directed_direction_set(Eo *obj, Efl_Ui_Progressbar_Data *sd, Efl_Ui_Dir dir)
 {
    if (sd->dir == dir) return;
 
@@ -457,7 +457,7 @@ _efl_ui_progressbar_efl_ui_direction_direction_set(Eo *obj, Efl_Ui_Progressbar_D
 }
 
 EOLIAN static Efl_Ui_Dir
-_efl_ui_progressbar_efl_ui_direction_direction_get(const Eo *obj EINA_UNUSED, Efl_Ui_Progressbar_Data *sd)
+_efl_ui_progressbar_efl_ui_directed_direction_get(const Eo *obj EINA_UNUSED, Efl_Ui_Progressbar_Data *sd)
 {
    return sd->dir;
 }
