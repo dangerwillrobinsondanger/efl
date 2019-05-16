@@ -274,4 +274,67 @@ class TestEventNaming
 
     }
 }
+
+class TestEventWithDeadWrappers
+{
+
+    private static WeakReference AttachToManager(Dummy.EventManager manager,
+                                          EventHandler<Dummy.TestObjectEvtWithIntEvt_Args> cb)
+    {
+        var obj = new Dummy.TestObject();
+        manager.Emitter = obj;
+
+        obj.EvtWithIntEvt += cb;
+        return new WeakReference(obj);
+    }
+
+    private static void CollectAndIterate(int iterations=1000)
+    {
+        for (int i = 0; i < iterations; i++)
+        {
+            System.GC.Collect();
+        }
+        System.GC.WaitForPendingFinalizers();
+        Efl.App.AppMain.Iterate();
+    }
+
+    public static void test_event_from_c_owned_wrapper()
+    {
+        // Set upon object instantiation
+        WeakReference wref = null;
+
+        // Checks in the callback called
+        bool callbackCalled = false;
+        int received = -1;
+
+        // attach to evt with int
+        EventHandler<Dummy.TestObjectEvtWithIntEvt_Args> cb = (object sender, Dummy.TestObjectEvtWithIntEvt_Args args) => {
+            callbackCalled = true;
+            received = args.arg;
+            Test.Assert(Object.ReferenceEquals(sender, wref.Target));
+        };
+
+        Dummy.EventManager manager = new Dummy.EventManager();
+        wref = AttachToManager(manager, cb);
+
+        CollectAndIterate();
+
+        manager.EmitWithInt(42);
+
+        CollectAndIterate();
+
+        Test.Assert(callbackCalled, "Callback must have been called.");
+        Test.AssertEquals(42, received, "Wrong value received.");
+
+        // Cleanup checks
+        manager.Release();
+
+        // Make sure the released wrapper is collected and release the Eo object
+        CollectAndIterate();
+
+        Test.AssertNull(wref.Target);
+    }
+
+}
+
 }
