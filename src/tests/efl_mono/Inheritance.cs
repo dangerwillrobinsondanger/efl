@@ -10,11 +10,6 @@ using static EinaTestData.BaseData;
 namespace TestSuite
 {
 
-internal class Rubbish
-{
-    public int Content { get; set; } = 0;
-}
-
 class TestInheritance
 {
     internal class Inherit1 : Dummy.TestObject
@@ -39,7 +34,7 @@ class TestInheritance
             return "Hello World";
         }
     }
-
+    
     internal class Inherit3Parent : Dummy.TestObject
     {
         public bool disposed = false;
@@ -50,7 +45,7 @@ class TestInheritance
             Console.WriteLine("finalizer called for parent");
         }
 
-        protected override void Dispose (bool disposing)
+        protected override void Dispose(bool disposing)
         {
             Console.WriteLine("Dispose parent");
             base.Dispose(disposing);
@@ -60,7 +55,7 @@ class TestInheritance
     internal class Inherit3Child : Dummy.TestObject
     {
         Inherit3Parent parent;
-        public Inherit3Child (Inherit3Parent parent) : base (parent)
+        public Inherit3Child(Inherit3Parent parent) : base(parent)
         {
             this.parent = parent;
         }
@@ -70,7 +65,7 @@ class TestInheritance
             Console.WriteLine("finalizer called for child");
         }
 
-        protected override void Dispose (bool disposing)
+        protected override void Dispose(bool disposing)
         {
             parent.childDisposed = true;
             Console.WriteLine("Dispose parent");
@@ -94,46 +89,16 @@ class TestInheritance
         Test.AssertEquals ("Hello World", s);
     }
 
-    private static void MakeRubbish(out WeakReference objWRef)
+    private static void CreateAndCheckInheritedObjects(out WeakReference parentWRef, out WeakReference childWRef)
     {
-        var obj = new Inherit3Parent();
-
-        objWRef = new WeakReference(obj);
-
-
-        int n = 2111000;
-        var arr1 = new Rubbish[n];
-        var arr2 = new Rubbish[n];
-        var rand = new Random();
-        for (int i = 0; i != n; ++i)
-        {
-            arr1[i] = new Rubbish();
-            arr1[i].Content = rand.Next();
-        }
-
-        for (int i = n-1; i != -1; --i)
-        {
-            arr2[i] = new Rubbish();
-            arr2[i].Content = arr1[(i+n/2)%n].Content + (arr1[i].Content%2 == 0 ? 1 : -1);
-        }
-
-        var x = rand.Next(n);
-        Console.WriteLine($"arr1[x] = {arr1[x].Content}; arr2[x] = {arr2[x].Content}");
-    }
-
-    private static void hsasdgsdahd(out WeakReference parentWRef, out WeakReference childWRef)
-    {
-        //var parent = new Inherit3Parent();
-        //var child = new Inherit3Child(parent);
-
-        var parent = new Dummy.TestObject();
-        var child = new Dummy.TestObject(parent);
+        var parent = new Inherit3Parent();
+        var child = new Inherit3Child(parent);
 
         parentWRef = new WeakReference(parent);
         childWRef = new WeakReference(child);
 
-        Console.WriteLine($"MMMMM Parent [{parent.ToString()}] has {Efl.Eo.Globals.efl_ref_count(parent.NativeHandle)} refs");
-        Console.WriteLine($"MMMMM Child [{child.ToString()}] has {Efl.Eo.Globals.efl_ref_count(child.NativeHandle)} refs");
+        Console.WriteLine($"Parent [{parent.ToString()}] has {Efl.Eo.Globals.efl_ref_count(parent.NativeHandle)} refs");
+        Console.WriteLine($"Child [{child.ToString()}] has {Efl.Eo.Globals.efl_ref_count(child.NativeHandle)} refs");
 
         child = null;
 
@@ -141,15 +106,15 @@ class TestInheritance
         System.GC.WaitForPendingFinalizers();
         Efl.App.AppMain.Iterate();
 
-        child = (Dummy.TestObject) childWRef.Target;
+        child = (Inherit3Child) childWRef.Target;
 
         Test.AssertNotNull(parent);
         Test.AssertNotNull(child);
-        //Test.AssertEquals(false, parent.disposed);
-        //Test.AssertEquals(false, parent.childDisposed);
+        Test.AssertEquals(false, parent.disposed);
+        Test.AssertEquals(false, parent.childDisposed);
 
-        Console.WriteLine($"MMMMM Parent [{parent.ToString()}] has {Efl.Eo.Globals.efl_ref_count(parent.NativeHandle)} refs");
-        Console.WriteLine($"MMMMM Child [{child.ToString()}] has {Efl.Eo.Globals.efl_ref_count(child.NativeHandle)} refs");
+        Console.WriteLine($"Parent [{parent.ToString()}] has {Efl.Eo.Globals.efl_ref_count(parent.NativeHandle)} refs");
+        Console.WriteLine($"Child [{child.ToString()}] has {Efl.Eo.Globals.efl_ref_count(child.NativeHandle)} refs");
 
         parent = null;
         child = null;
@@ -164,14 +129,11 @@ class TestInheritance
         System.GC.WaitForPendingFinalizers();
         Efl.App.AppMain.Iterate();
 
-        hsasdgsdahd(out parentWRef, out childWRef);
-
-        WeakReference objWRef;
-        MakeRubbish(out objWRef);
+        CreateAndCheckInheritedObjects(out parentWRef, out childWRef);
 
         for (int i = 0; i < 10; ++i)
         {
-            for (int j = 0; j < 1000; ++j)
+            for (int j = 0; j < 100; ++j)
             {
                 System.GC.Collect();
             }
@@ -180,11 +142,9 @@ class TestInheritance
             Efl.App.AppMain.Iterate();
         }
 
-        var obj = (Rubbish) objWRef.Target;
         var parent = (Dummy.TestObject) parentWRef.Target;
         var child = (Dummy.TestObject) childWRef.Target;
 
-        Test.AssertNull(obj);
         Test.AssertNull(parent);
         Test.AssertNull(child);
     }

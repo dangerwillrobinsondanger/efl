@@ -11,11 +11,13 @@ namespace Eo
 public class WrapperSupervisor
 {
     private System.WeakReference weakRef;
+#pragma warning disable CS0414
     private Efl.Eo.IWrapper sharedRef;
+#pragma warning restore CS0414
     private EventDictionary eoEvents;
 
     /// <summary>Create a new supervisor for the given.</summary>
-    /// <param name="eo">Efl object to be supervised.</param>
+    /// <param name="obj">Efl object to be supervised.</param>
     public WrapperSupervisor(Efl.Eo.IWrapper obj)
     {
         weakRef = new WeakReference(obj);

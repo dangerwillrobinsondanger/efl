@@ -578,6 +578,7 @@ public class Globals
     /// <returns>The C# wrapper for this instance.</returns>
     public static Efl.Eo.IWrapper CreateWrapperFor(System.IntPtr handle, bool shouldIncRef=true)
     {
+
         if (handle == IntPtr.Zero)
         {
             return null;
@@ -645,8 +646,6 @@ public class Globals
         {
             Efl.Eo.Globals.efl_unref(handle);
         }
-
-        return null;
     }
 
     private static Efl.FreeWrapperSupervisorCb FreeWrapperSupervisorCallbackDelegate = new Efl.FreeWrapperSupervisorCb(FreeWrapperSupervisorCallback);
@@ -673,7 +672,12 @@ public class Globals
                 }
             }
 
+            // Free the native eo
             Efl.Eo.Globals.efl_unref(eo);
+
+            // now the WrapperSupervisor can be collected, and so its member:
+            //     - the event dictionary
+            //     - and the EoWrapper if it is still pinned
             gch.Free();
         }
         catch (Exception e)
@@ -775,6 +779,7 @@ public abstract class EoWrapper : IWrapper, IDisposable
 
     private static Efl.EventCb ownershipUniqueDelegate = new Efl.EventCb(OwnershipUniqueCallback);
     private static Efl.EventCb ownershipSharedDelegate = new Efl.EventCb(OwnershipSharedCallback);
+    private static Efl.EventCb invalidateDelegate = new Efl.EventCb(InvalidateCallback);
 
     /// <summary>Initializes a new instance of the <see cref="Object"/> class.
     /// Internal usage: Constructs an instance from a native pointer. This is used when interacting with C code and should not be used directly.</summary>
@@ -862,27 +867,6 @@ public abstract class EoWrapper : IWrapper, IDisposable
 
             Monitor.Exit(Efl.All.InitLock);
         }
-    }
-
-    /// <summary>Verifies if the given object is equal to this one.</summary>
-    /// <param name="instance">The object to compare to.</param>
-    /// <returns>True if both objects point to the same native object.</returns>
-    public override bool Equals(object instance)
-    {
-        var other = instance as Efl.Eo.IWrapper;
-        if (other == null)
-        {
-            return false;
-        }
-
-        return handle == other.NativeHandle;
-    }
-
-    /// <summary>Gets the hash code for this object based on the native pointer it points to.</summary>
-    /// <returns>The value of the pointer, to be used as the hash code of this object.</returns>
-    public override int GetHashCode()
-    {
-        return handle.ToInt32();
     }
 
     /// <summary>Turns the native pointer into a string representation.</summary>
@@ -992,6 +976,12 @@ public abstract class EoWrapper : IWrapper, IDisposable
         ws.MakeShared();
     }
 
+    private static void InvalidateCallback(IntPtr data, ref Efl.Event.NativeStruct evt)
+    {
+        var ws = Efl.Eo.Globals.WrapperSupervisorPtrToManaged(data);
+        ws.MakeUnique();
+    }
+
     /// <sumary>Create and set to the internal native state a C# supervisor for this Eo wrapper. For internal use only.</sumary>
     private void AddWrapperSupervisor()
     {
@@ -1010,6 +1000,7 @@ public abstract class EoWrapper : IWrapper, IDisposable
     {
         AddNativeEventHandler("eo", "_EFL_EVENT_OWNERSHIP_UNIQUE", ownershipUniqueDelegate, ownershipUniqueDelegate);
         AddNativeEventHandler("eo", "_EFL_EVENT_OWNERSHIP_SHARED", ownershipSharedDelegate, ownershipSharedDelegate);
+        AddNativeEventHandler("eo", "_EFL_EVENT_INVALIDATE", invalidateDelegate, invalidateDelegate);
         Eina.Error.RaiseIfUnhandledException();
     }
 }

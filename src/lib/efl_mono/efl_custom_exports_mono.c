@@ -50,13 +50,11 @@ EAPI void efl_mono_wrapper_supervisor_callbacks_set(Efl_Mono_Free_Wrapper_Superv
 
 EAPI void efl_mono_native_dispose(Eo *obj)
 {
-   printf("HHHHH %s:%i %s(%p)\n", __FILE__, __LINE__, __func__, obj); fflush(stderr); fflush(stdout);
    _efl_mono_free_wrapper_supervisor_call(obj);
 }
 
 EAPI void efl_mono_thread_safe_native_dispose(Eo *obj)
 {
-   printf("HHHHH %s:%i %s(%p)\n", __FILE__, __LINE__, __func__, obj); fflush(stderr); fflush(stdout);
    ecore_main_loop_thread_safe_call_async((Ecore_Cb)efl_mono_native_dispose, obj);
 }
 
